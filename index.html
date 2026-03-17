@@ -2136,18 +2136,31 @@ async function searchBoard(q) {
   const ids = items.map(i => i.getAttribute('id')).filter(Boolean).join(',');
   if (!ids) return [];
 
-  // Step 2: get details (thumbnails, description, player counts)
-  const detailRes  = await fetch(WORKER_URL + '/bgg?path=' +
-    encodeURIComponent('thing?id=' + ids + '&stats=0'));
-  const detailText = await detailRes.text();
-  const detailXml  = parser.parseFromString(detailText, 'text/xml');
+  console.log('[BGG] search ids:', ids);
+
+  // Step 2: get details — BGG returns 202 on first request (queued), retry up to 3 times
+  const detailPath = encodeURIComponent('thing?id=' + ids + '&stats=0');
+  let detailText = '', detailXml, attempts = 0;
+  while (attempts < 3) {
+    const detailRes = await fetch(WORKER_URL + '/bgg?path=' + detailPath);
+    detailText = await detailRes.text();
+    console.log('[BGG] detail attempt', attempts, 'response length:', detailText.length, 'preview:', detailText.substring(0, 300));
+    detailXml  = parser.parseFromString(detailText, 'text/xml');
+    const itemCount = detailXml.querySelectorAll('item').length;
+    console.log('[BGG] items in detail response:', itemCount);
+    if (itemCount > 0) break;
+    attempts++;
+    await new Promise(r => setTimeout(r, 1500));
+  }
 
   return [...detailXml.querySelectorAll('item')].map(item => {
     const title   = item.querySelector('name[type="primary"]')?.getAttribute('value') || '';
     const year    = item.querySelector('yearpublished')?.getAttribute('value') || '';
-    const rawThumb = item.querySelector('thumbnail')?.textContent?.trim() || '';
-    const rawImage = item.querySelector('image')?.textContent?.trim() || '';
-    const desc    = (item.querySelector('description')?.textContent||'').replace(/&#\d+;/g,'').substring(0,200);
+    // BGG wraps image URLs in CDATA — extract and clean
+    const rawThumb = (item.querySelector('thumbnail')?.textContent || '').trim().replace(/^\/\//, 'https://');
+    const rawImage = (item.querySelector('image')?.textContent || '').trim().replace(/^\/\//, 'https://');
+    console.log('[BGG] item:', title, '| thumb:', rawThumb, '| image:', rawImage);
+    const desc    = (item.querySelector('description')?.textContent||'').replace(/[^\x20-\x7E\n]/g,'').substring(0,200);
     const minP    = item.querySelector('minplayers')?.getAttribute('value') || '';
     const maxP    = item.querySelector('maxplayers')?.getAttribute('value') || '';
     const players = minP && maxP ? minP + (minP !== maxP ? '–' + maxP : '') : '';
