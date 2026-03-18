@@ -2402,7 +2402,7 @@ async function fetchDiscogsImage(releaseId) {
     if (!res.ok) return '';
     const data = await res.json();
     const img = (data.images || []).find(i => i.type === 'primary') || data.images?.[0];
-    return img ? (img.uri || img.uri150 || '') : '';
+    return img ? (img.uri150 || img.uri || '') : '';
   } catch(e) { return ''; }
 }
 
@@ -2613,7 +2613,7 @@ const GH = {
   user:   'RomeoRomeoG',
   repo:   'theVault-',
   file:   'collection.json',
-  branch: 'main',
+  branch: 'main',  // updated below if gh-pages is detected
 };
 
 let ghSha = null;
@@ -2626,25 +2626,44 @@ function ghApiUrl() {
 async function ghLoad() {
   showSyncStatus('loading');
   try {
-    const res = await fetch(ghApiUrl() + '?ref=' + GH.branch, {
-      headers: { 'Authorization': 'token ' + GH.token, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (res.status === 404) { ghSha = null; showSyncStatus(''); return; }
-    const data = await res.json();
-    ghSha = data.sha;
-    const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    if (decoded.items && Array.isArray(decoded.items)) {
-      ITEMS.length = 0;
-      decoded.items.forEach(item => ITEMS.push(item));
-      if (decoded.reviews) {
-        Object.entries(decoded.reviews).forEach(([id, rv]) => saveRv(id, rv));
+    const headers = { 'Authorization': 'token ' + GH.token, 'Accept': 'application/vnd.github.v3+json' };
+
+    // Auto-detect branch: try main first, then gh-pages
+    for (const branch of ['main', 'gh-pages', 'master']) {
+      const probe = await fetch(ghApiUrl() + '?ref=' + branch, { headers });
+      console.log('[GH load] branch:', branch, 'status:', probe.status);
+      if (probe.status === 200) {
+        GH.branch = branch;
+        const data = await probe.json();
+        ghSha = data.sha;
+        const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
+        if (decoded.items && Array.isArray(decoded.items)) {
+          ITEMS.length = 0;
+          decoded.items.forEach(item => ITEMS.push(item));
+          if (decoded.reviews) {
+            Object.entries(decoded.reviews).forEach(([id, rv]) => saveRv(id, rv));
+          }
+          refreshCounts(); updateStats(); render();
+        }
+        showSyncStatus('loaded');
+        setTimeout(() => showSyncStatus(''), 2500);
+        console.log('[GH load] success on branch:', branch, 'items:', ITEMS.length);
+        return;
+      } else if (probe.status === 404) {
+        // File not found on this branch — try next
+        continue;
+      } else if (probe.status === 401 || probe.status === 403) {
+        console.error('[GH load] auth error:', probe.status);
+        showSyncStatus('error');
+        return;
       }
-      refreshCounts(); updateStats(); render();
     }
-    showSyncStatus('loaded');
-    setTimeout(() => showSyncStatus(''), 2500);
+    // collection.json not found on any branch — will be created on first save
+    console.log('[GH load] collection.json not found on any branch — will create on first save');
+    ghSha = null;
+    showSyncStatus('');
   } catch(e) {
-    console.error('GitHub load error:', e);
+    console.error('[GH load] error:', e.message, e);
     showSyncStatus('error');
   }
 }
@@ -2677,15 +2696,16 @@ async function ghSave() {
       body: JSON.stringify(body),
     });
     const data = await res.json();
+    console.log('[GH save] response:', JSON.stringify(data).substring(0, 300));
     if (data.content) {
       ghSha = data.content.sha;
       showSyncStatus('saved');
       setTimeout(() => showSyncStatus(''), 3000);
     } else {
-      throw new Error(data.message || 'Save failed');
+      throw new Error(data.message || JSON.stringify(data));
     }
   } catch(e) {
-    console.error('GitHub save error:', e);
+    console.error('[GH save] error:', e.message, e);
     showSyncStatus('error');
   }
 }
