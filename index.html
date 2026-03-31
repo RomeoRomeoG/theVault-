@@ -155,13 +155,13 @@ main{max-width:1600px;margin:0 auto;padding:0.85rem 0.6rem 6rem}
 .stat-cell-lbl{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 .stat-cell-sub{font-size:0.66rem;color:var(--muted)}
 .bar-chart{display:flex;flex-direction:column;gap:0.5rem}
-.bar-row{display:flex;align-items:center;gap:0.6rem}
+.bar-row{display:flex;align-items:center;gap:0.6rem;transition:opacity .12s}.bar-row:hover{opacity:.75}
 .bar-label{font-size:0.72rem;color:var(--muted);min-width:5rem;flex-shrink:0}
 .bar-track{flex:1;background:var(--tag);border-radius:999px;height:7px;overflow:hidden}
 .bar-fill{height:100%;border-radius:999px;transition:width .6s ease}
 .bar-val{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);min-width:2rem;text-align:right}
 .status-summary{display:flex;flex-direction:column;gap:0.4rem}
-.ss-row{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0.85rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.ss-row{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0.85rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:background .12s}.ss-row[onclick]:hover{background:var(--tag)}
 .ss-left{display:flex;align-items:center;gap:0.6rem}
 .ss-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .ss-label{font-size:0.78rem;font-weight:500}
@@ -1451,6 +1451,7 @@ function filtered() {
         !(i.tags||[]).some(t => t.toLowerCase().includes(q))) return false;
     if (fR && !(loadRv(i.id).rating > 0)) return false;
     if (fN && !loadRv(i.id).note?.trim()) return false;
+    if (window._statusFilter && loadRv(i.id).status !== window._statusFilter) return false;
     return true;
   });
   if (sortKey !== 'default') {
@@ -1914,7 +1915,8 @@ function buildStatsPage() {
   // Categories
   html += '<div class="stat-section"><div class="stat-section-title">By Category</div><div class="bar-chart">';
   catCounts.forEach(({ c, n }) => {
-    html += '<div class="bar-row"><div class="bar-label">' + CL[c] + '</div>'
+    html += '<div class="bar-row" style="cursor:pointer" onclick="closeStatsPage();catPillSelect(\'' + c + '\')">'
+          + '<div class="bar-label" style="text-decoration:underline;text-decoration-style:dotted">' + CL[c] + '</div>'
           + '<div class="bar-track"><div class="bar-fill" style="width:' + (n/maxCat*100) + '%;background:var(--text);opacity:.7"></div></div>'
           + '<div class="bar-val">' + n + '</div></div>';
   });
@@ -1923,7 +1925,11 @@ function buildStatsPage() {
   // Status
   html += '<div class="stat-section"><div class="stat-section-title">Status Breakdown</div><div class="status-summary">';
   stCounts.forEach(({ s, n }) => {
-    html += '<div class="ss-row"><div class="ss-left"><div class="ss-dot" style="background:' + ST_COL[s] + '"></div><div class="ss-label">' + ST_LABEL[s] + '</div></div><div class="ss-val">' + n + ' item' + (n!==1?'s':'') + '</div></div>';
+    const clickable = n > 0 ? ' style="cursor:pointer" onclick="closeStatsPage();filterByStatus(\'' + s + '\')"' : '';
+    html += '<div class="ss-row"' + clickable + '>'
+          + '<div class="ss-left"><div class="ss-dot" style="background:' + ST_COL[s] + '"></div>'
+          + '<div class="ss-label"' + (n>0?' style="text-decoration:underline;text-decoration-style:dotted"':'') + '>' + ST_LABEL[s] + '</div></div>'
+          + '<div class="ss-val">' + n + ' item' + (n!==1?'s':'') + (n>0?' →':'') + '</div></div>';
   });
   html += '</div></div>';
 
@@ -3514,6 +3520,35 @@ function updateCatPillCounts() {
     const el = document.getElementById('cpc-' + c);
     if (el) el.textContent = n > 0 ? n : '';
   });
+}
+
+function filterByStatus(status) {
+  // Reset category filter to all, apply status filter
+  cat = 'all'; q = '';
+  fR = false; fN = false;
+  document.getElementById('search').value = '';
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'all'));
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.dataset.cat === 'all'));
+  document.getElementById('pill-rated').classList.remove('active');
+  document.getElementById('pill-noted').classList.remove('active');
+
+  // Temporarily override filtered() to show status items
+  // We do this by setting a status filter flag
+  window._statusFilter = status;
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  // Show a clear pill so user knows filter is active
+  const lbl = document.getElementById('sec-lbl');
+  if (lbl) {
+    const clearBtn = ' <button onclick="clearStatusFilter()" style="font-size:0.55rem;background:var(--text);color:var(--bg);border:none;border-radius:999px;padding:0.1rem 0.4rem;cursor:pointer;margin-left:0.3rem">✕ clear</button>';
+    lbl.innerHTML = lbl.textContent + clearBtn;
+  }
+}
+
+function clearStatusFilter() {
+  window._statusFilter = null;
+  render();
 }
 
 init();
