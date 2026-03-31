@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <title>VAULT</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -424,6 +427,164 @@ select.field-inp{cursor:pointer}
 .own-btn.active-owned{background:#edf7f0;color:#2d6a4f;border-color:#2d6a4f;font-weight:500}
 .own-btn.active-wishlist{background:#f5eef8;color:#6a2a5a;border-color:#6a2a5a;font-weight:500}
 .own-btn.active-logged{background:var(--tag);color:var(--text);border-color:var(--border2);font-weight:500}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE NATIVE APP LAYOUT  (≤ 600px)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Bottom nav bar ── */
+.bottom-nav{display:none}
+@media(max-width:600px){
+  /* Hide desktop header buttons, show only wordmark + overflow */
+  .btn-icon,.btn-add,.btn-rand{ display:none!important }
+  .mob-overflow-btn{ display:flex!important }
+
+  /* Slim header */
+  header{ padding:0 1rem; height:52px; border-bottom:1px solid var(--border) }
+  h1{ font-size:1.1rem }
+
+  /* Hide top nav tabs — replaced by bottom nav */
+  .nav-tabs{ display:none!important }
+
+  /* Slim search toolbar */
+  .nav-tools{ padding:0.4rem 0.75rem; border-bottom:1px solid var(--border) }
+  .sort-row{ padding:0.25rem 0.75rem }
+
+  /* More breathing room in main — bottom nav needs space */
+  main{ padding:0.75rem 0.5rem 6rem }
+
+  /* Bottom nav */
+  .bottom-nav{
+    display:flex; position:fixed; bottom:0; left:0; right:0; z-index:100;
+    background:var(--surface); border-top:1px solid var(--border);
+    padding:0 0.25rem; padding-bottom:env(safe-area-inset-bottom,0);
+    height:60px; align-items:stretch;
+  }
+  .bn-item{
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:2px; border:none; background:none;
+    cursor:pointer; padding:0.3rem 0; color:var(--faint);
+    transition:color .15s; -webkit-tap-highlight-color:transparent;
+    font-family:'DM Sans',sans-serif;
+  }
+  .bn-item.active{ color:var(--text) }
+  .bn-item svg{ flex-shrink:0 }
+  .bn-label{ font-size:0.55rem; letter-spacing:0.02em; line-height:1 }
+  .bn-add{
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:2px; border:none; background:none;
+    cursor:pointer; padding:0.3rem 0;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .bn-add-circle{
+    width:44px; height:44px; background:var(--text); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .bn-add-circle svg{ color:var(--bg) }
+  .bn-count{
+    position:absolute; top:-2px; right:-4px;
+    background:var(--text); color:var(--bg);
+    border-radius:999px; min-width:14px; height:14px;
+    font-family:'DM Mono',monospace; font-size:0.42rem;
+    display:flex; align-items:center; justify-content:center;
+    padding:0 3px; line-height:1;
+  }
+  .bn-icon-wrap{ position:relative }
+
+  /* Overflow menu */
+  .mob-menu{
+    display:none; position:fixed; bottom:68px; right:0.75rem; z-index:200;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden; min-width:160px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+  }
+  .mob-menu.open{ display:block }
+  .mob-menu-item{
+    display:flex; align-items:center; gap:0.65rem;
+    padding:0.75rem 1rem; border:none; background:none; width:100%;
+    font-family:'DM Sans',sans-serif; font-size:0.82rem; color:var(--text);
+    cursor:pointer; text-align:left; border-bottom:1px solid var(--border);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mob-menu-item:last-child{ border-bottom:none }
+  .mob-menu-item:hover{ background:var(--tag) }
+  .mob-menu-backdrop{
+    display:none; position:fixed; inset:0; z-index:199;
+  }
+  .mob-menu-backdrop.open{ display:block }
+
+  /* Larger grid on phone — 2 cols feel better than 3 for covers */
+  .vw-grid{ grid-template-columns:repeat(3,1fr)!important; gap:3px!important }
+
+  /* Stats bar 2-col */
+  .stats-bar{ grid-template-columns:repeat(2,1fr) }
+
+  /* Hide stats bar on mobile to save space */
+  .stats-bar{ display:none }
+  .sec-lbl{ margin-bottom:0.4rem; font-size:0.46rem }
+}
+
+/* Always hidden on desktop */
+.mob-overflow-btn{ display:none }
+
+@media(max-width:600px){
+  .mob-search-ov{
+    position:fixed;inset:0;background:var(--bg);z-index:120;
+    padding:0;
+  }
+  .mob-search-inner{
+    display:flex;align-items:center;gap:0.5rem;
+    padding:0.75rem 1rem;border-bottom:1px solid var(--border);
+    background:var(--surface);
+  }
+  .mob-search-inp{
+    flex:1;background:var(--tag);border:none;border-radius:10px;
+    padding:0.6rem 0.85rem;font-family:'DM Sans',sans-serif;font-size:1rem;
+    color:var(--text);outline:none;
+  }
+  .mob-search-inp::placeholder{color:var(--faint)}
+  .mob-search-cancel{
+    background:none;border:none;font-family:'DM Sans',sans-serif;
+    font-size:0.9rem;color:var(--text);cursor:pointer;white-space:nowrap;
+    padding:0.3rem;
+  }
+  #mob-search-results{
+    overflow-y:auto;height:calc(100vh - 60px);padding:0.5rem 0;
+  }
+  .mob-sr-item{
+    display:flex;align-items:center;gap:0.75rem;
+    padding:0.65rem 1rem;cursor:pointer;border-bottom:1px solid var(--border);
+  }
+  .mob-sr-item:active{background:var(--tag)}
+  .mob-sr-thumb{width:2.2rem;height:3rem;object-fit:cover;border-radius:3px;flex-shrink:0;background:var(--tag)}
+  .mob-sr-thumb.sq{height:2.2rem}
+  .mob-sr-info{flex:1;min-width:0}
+  .mob-sr-title{font-size:0.85rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mob-sr-sub{font-size:0.7rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mob-sr-cat{font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--faint)}
+}
+
+@media(max-width:600px){
+  .cat-strip{
+    display:flex;overflow-x:auto;gap:0.4rem;
+    padding:0.5rem 0.75rem;
+    border-bottom:1px solid var(--border);
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    background:var(--bg);
+  }
+  .cat-strip::-webkit-scrollbar{display:none}
+  .cat-pill{
+    display:flex;align-items:center;gap:0.3rem;
+    background:none;border:1px solid var(--border);border-radius:999px;
+    padding:0.3rem 0.75rem;white-space:nowrap;flex-shrink:0;
+    font-family:'DM Sans',sans-serif;font-size:0.76rem;color:var(--muted);
+    cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;
+  }
+  .cat-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .cat-pill-count{font-family:'DM Mono',monospace;font-size:0.58rem;opacity:0.6}
+}
+@media(min-width:601px){ .cat-strip{ display:none } }
 </style>
 </head>
 <body>
@@ -455,8 +616,41 @@ select.field-inp{cursor:pointer}
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
       Surprise
     </button>
+    <!-- Mobile overflow button (hidden on desktop) -->
+    <button class="mob-overflow-btn btn-icon" onclick="toggleMobMenu()" aria-label="Menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+    </button>
   </div>
 </header>
+
+<!-- Mobile overflow menu -->
+<div class="mob-menu-backdrop" id="mob-backdrop" onclick="closeMobMenu()"></div>
+<div class="mob-menu" id="mob-menu">
+  <button class="mob-menu-item" onclick="closeMobMenu();openSheet('add')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Add Item
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();openYearPage()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Year in Review
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();openStatsPage()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Stats
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();openRandom()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+    Surprise Me
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();exportCollection()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();openSheet('import')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Import
+  </button>
+</div>
 
 <nav>
   <div class="nav-tabs">
@@ -482,6 +676,14 @@ select.field-inp{cursor:pointer}
         <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="2" rx=".5"/><rect x="1" y="7" width="14" height="2" rx=".5"/><rect x="1" y="12" width="14" height="2" rx=".5"/></svg>
       </button>
     </div>
+  </div>
+  <div class="cat-strip" id="cat-strip">
+    <button class="cat-pill active" data-cat="all" onclick="catPillSelect('all')">All <span class="cat-pill-count" id="cpc-all"></span></button>
+    <button class="cat-pill" data-cat="games" onclick="catPillSelect('games')">🎮 Games <span class="cat-pill-count" id="cpc-games"></span></button>
+    <button class="cat-pill" data-cat="records" onclick="catPillSelect('records')">🎵 Records <span class="cat-pill-count" id="cpc-records"></span></button>
+    <button class="cat-pill" data-cat="movies" onclick="catPillSelect('movies')">🎬 Movies <span class="cat-pill-count" id="cpc-movies"></span></button>
+    <button class="cat-pill" data-cat="board" onclick="catPillSelect('board')">♟️ Board <span class="cat-pill-count" id="cpc-board"></span></button>
+    <button class="cat-pill" data-cat="books" onclick="catPillSelect('books')">📚 Books <span class="cat-pill-count" id="cpc-books"></span></button>
   </div>
   <div class="sort-row">
     <span class="sort-lbl">Sort</span>
@@ -1166,6 +1368,7 @@ function init() {
       document.getElementById('search').value = '';
       document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
       t.classList.add('active');
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.dataset.cat === cat));
       render();
     });
   });
@@ -1209,6 +1412,8 @@ function refreshCounts() {
     document.getElementById('cnt-' + c).textContent = ITEMS.filter(i => i.cat === c).length;
   });
   document.getElementById('cnt-all').textContent = ITEMS.length;
+  bnUpdateCounts();
+  updateCatPillCounts();
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1676,7 +1881,7 @@ function doImport() {
 // STATS PAGE
 // ─────────────────────────────────────────────────────────────
 function openStatsPage() { buildStatsPage(); document.getElementById('stats-page').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeStatsPage() { document.getElementById('stats-page').classList.remove('open'); document.body.style.overflow = ''; }
+function closeStatsPage() { document.getElementById('stats-page').classList.remove('open'); document.body.style.overflow = ''; document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active')); const c=document.getElementById('bn-collection'); if(c)c.classList.add('active'); }
 
 function buildStatsPage() {
   const el   = document.getElementById('stats-content');
@@ -2949,6 +3154,7 @@ function openYearPage() {
 function closeYearPage() {
   document.getElementById('yr-page').classList.remove('open');
   document.body.style.overflow = '';
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active')); const c=document.getElementById('bn-collection'); if(c)c.classList.add('active');
 }
 
 function buildEditorialYear(yr) {
@@ -3194,8 +3400,158 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// ─────────────────────────────────────────────────────────────
+// MOBILE BOTTOM NAV
+// ─────────────────────────────────────────────────────────────
+function bnTab(tab) {
+  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('bn-' + tab);
+  if (btn) btn.classList.add('active');
+
+  if (tab === 'collection') {
+    // Show collection, reset to all categories
+    closeMobSearch();
+    cat = 'all'; q = '';
+    document.getElementById('search').value = '';
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'all'));
+    render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else if (tab === 'stats') {
+    closeMobSearch();
+    openStatsPage();
+  } else if (tab === 'year') {
+    closeMobSearch();
+    openYearPage();
+  } else if (tab === 'search') {
+    openMobSearch();
+  }
+}
+
+function bnUpdateCounts() {
+  // No counts needed in new nav — kept for compatibility
+}
+
+function openMobSearch() {
+  const el = document.getElementById('mob-search-ov');
+  el.style.display = 'block';
+  setTimeout(() => document.getElementById('mob-search-inp').focus(), 50);
+  document.body.style.overflow = 'hidden';
+}
+function closeMobSearch() {
+  document.getElementById('mob-search-ov').style.display = 'none';
+  document.getElementById('mob-search-results').innerHTML = '';
+  document.getElementById('mob-search-inp').value = '';
+  document.body.style.overflow = '';
+  // Reset search tab active state back to collection
+  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
+  const coll = document.getElementById('bn-collection');
+  if (coll) coll.classList.add('active');
+}
+
+function mobSearch(val) {
+  const resultsEl = document.getElementById('mob-search-results');
+  if (!val.trim()) { resultsEl.innerHTML = ''; return; }
+  const q2 = val.toLowerCase();
+  const matches = ITEMS.filter(i =>
+    i.title.toLowerCase().includes(q2) ||
+    (i.sub||'').toLowerCase().includes(q2) ||
+    (i.tags||[]).some(t => t.toLowerCase().includes(q2))
+  ).slice(0, 30);
+  if (!matches.length) {
+    resultsEl.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--faint);font-size:0.8rem">No results</div>';
+    return;
+  }
+  const html = matches.map(item => {
+    const sq  = item.coverIs === 'sq';
+    const src = item.coverSm || item.phSm || '';
+    const thumb = src
+      ? '<img class="mob-sr-thumb' + (sq?' sq':'') + '" src="' + src + '" alt=""/>'
+      : '<div class="mob-sr-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem">' + (CE[item.cat]||'📦') + '</div>';
+    return '<div class="mob-sr-item" data-id="' + item.id + '">'
+      + thumb
+      + '<div class="mob-sr-info">'
+        + '<div class="mob-sr-title">' + item.title + '</div>'
+        + '<div class="mob-sr-sub">' + item.sub + '</div>'
+        + '<div class="mob-sr-cat">' + CL[item.cat] + '</div>'
+      + '</div></div>';
+  }).join('');
+  resultsEl.innerHTML = html;
+  resultsEl.querySelectorAll('.mob-sr-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.id;
+      closeMobSearch();
+      setTimeout(() => openModal(id), 80);
+    });
+  });
+}
+
+function toggleMobMenu() {
+  document.getElementById('mob-menu').classList.toggle('open');
+  document.getElementById('mob-backdrop').classList.toggle('open');
+}
+function closeMobMenu() {
+  document.getElementById('mob-menu').classList.remove('open');
+  document.getElementById('mob-backdrop').classList.remove('open');
+}
+
+function catPillSelect(catVal) {
+  cat = catVal; q = '';
+  document.getElementById('search').value = '';
+  // Sync desktop tabs
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === catVal));
+  // Sync mobile pills
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.dataset.cat === catVal));
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateCatPillCounts() {
+  const counts = {all: ITEMS.length};
+  ['games','records','movies','board','books'].forEach(c => {
+    counts[c] = ITEMS.filter(i => i.cat === c).length;
+  });
+  Object.entries(counts).forEach(([c, n]) => {
+    const el = document.getElementById('cpc-' + c);
+    if (el) el.textContent = n > 0 ? n : '';
+  });
+}
+
 init();
 
 </script>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="bn-item active" id="bn-collection" onclick="bnTab('collection')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span class="bn-label">Collection</span>
+  </button>
+  <button class="bn-item" id="bn-stats" onclick="bnTab('stats')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span class="bn-label">Stats</span>
+  </button>
+  <button class="bn-add" onclick="openSheet('add')">
+    <div class="bn-add-circle">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+  </button>
+  <button class="bn-item" id="bn-year" onclick="bnTab('year')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span class="bn-label">Year</span>
+  </button>
+  <button class="bn-item" id="bn-search" onclick="bnTab('search')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span class="bn-label">Search</span>
+  </button>
+</nav>
+
+<!-- Mobile search overlay -->
+<div class="mob-search-ov" id="mob-search-ov" style="display:none">
+  <div class="mob-search-inner">
+    <input class="mob-search-inp" id="mob-search-inp" type="search" placeholder="Search your vault…" autocomplete="off" oninput="mobSearch(this.value)"/>
+    <button class="mob-search-cancel" onclick="closeMobSearch()">Cancel</button>
+  </div>
+  <div id="mob-search-results"></div>
+</div>
 </body>
 </html>
