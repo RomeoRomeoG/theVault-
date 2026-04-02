@@ -369,135 +369,75 @@ select.field-inp{cursor:pointer}
 .m-upload-row{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;border-top:1px solid var(--border)}
 .m-upload-lbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
-/* ══ YEAR IN REVIEW — MAGAZINE (mobile-first) ═══════════════ */
+/* ══ YEAR IN REVIEW ═════════════════════════════════════════ */
 .yr-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:160;overflow-y:auto}
 .yr-page.open{display:block}
-.yr-page-close{position:fixed;top:0.75rem;right:0.85rem;background:none;border:none;font-size:0.82rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
+.yr-page-close{position:fixed;top:0.85rem;right:1rem;background:none;border:none;font-size:0.85rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem}
 
 /* Masthead */
-.yr-masthead{padding:1.25rem 1rem 1rem;border-bottom:2px solid var(--text);display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
-.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
-.yr-masthead-year{font-size:clamp(2.8rem,10vw,7rem);font-weight:300;letter-spacing:-0.04em;line-height:0.9;color:var(--text)}
-.yr-masthead-right{display:flex;flex-direction:column;gap:0.35rem;text-align:right;flex-shrink:0;padding-bottom:0.2rem}
-.yr-masthead-stat-val{font-size:clamp(0.9rem,3vw,1.4rem);font-weight:300;letter-spacing:-0.02em;line-height:1;color:var(--text)}
+.yr-masthead{padding:1.5rem 1rem 1.1rem;border-bottom:2px solid var(--text);display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
+.yr-masthead-year{font-size:clamp(2.5rem,10vw,6rem);font-weight:300;letter-spacing:-0.04em;line-height:0.9;color:var(--text)}
+.yr-masthead-right{display:flex;flex-direction:column;gap:0.3rem;text-align:right;flex-shrink:0;padding-bottom:0.15rem}
+.yr-masthead-stat-val{font-size:clamp(0.85rem,3vw,1.25rem);font-weight:300;line-height:1;color:var(--text)}
 .yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
 /* Nav */
-.yr-nav{display:flex;align-items:stretch;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.yr-nav{display:flex;align-items:stretch;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;background:var(--bg)}
 .yr-nav::-webkit-scrollbar{display:none}
 .yr-year-tabs,.yr-filter-bar{display:flex}
 .yr-filter-bar{margin-left:auto}
-.yr-year-tab,.yr-filter-pill{background:none;border:none;border-bottom:2px solid transparent;padding:0.5rem 0.65rem;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.08em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px;white-space:nowrap}
+.yr-year-tab,.yr-filter-pill{
+  background:none;border:none;border-bottom:2px solid transparent;
+  padding:0.5rem 0.7rem;font-family:'DM Mono',monospace;font-size:0.5rem;
+  letter-spacing:0.08em;color:var(--muted);cursor:pointer;flex-shrink:0;
+  transition:color .15s;position:relative;top:1px;white-space:nowrap
+}
 .yr-year-tab.active,.yr-filter-pill.active{color:var(--text);border-bottom-color:var(--text)}
-.yr-nav-sep{width:1px;background:var(--border);align-self:stretch;margin:0.35rem 0.2rem;flex-shrink:0}
 
-/* Content */
+/* Feed */
 .yr-content{padding:0 0 5rem}
-
-/* ── SPREAD: full-width hero ── */
-.mag-spread{
-  display:grid;grid-template-columns:120px 1fr;
-  gap:0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:background .12s;
-  background:var(--surface);
+.yr-feed-item{
+  display:grid;
+  grid-template-columns:88px 1fr;
+  gap:0.85rem;
+  padding:1rem;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+  transition:background .12s;
+  align-items:start;
 }
-.mag-spread:hover{background:var(--tag)}
-.mag-spread-img{
-  width:120px;aspect-ratio:2/3;object-fit:cover;
-  display:block;background:var(--tag);flex-shrink:0;
-}
-.mag-spread-img.sq{aspect-ratio:1/1}
-.mag-spread-img-ph{width:120px;aspect-ratio:2/3;background:var(--tag);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
-.mag-spread-body{padding:1rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;min-width:0;justify-content:center}
-.mag-spread-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem;margin-bottom:0.1rem}
-.mag-spread-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.mag-spread-title{font-size:1rem;font-weight:500;letter-spacing:-0.02em;line-height:1.2}
-.mag-spread-sub{font-size:0.68rem;color:var(--muted);font-style:italic}
-.mag-spread-stars .s{font-size:0.82rem;color:var(--faint)}.mag-spread-stars .s.on{color:var(--gold)}
-.mag-spread-word{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
-.mag-spread-note{font-size:0.72rem;line-height:1.6;font-style:italic;border-left:2px solid var(--border2);padding-left:0.5rem;color:var(--text);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.yr-feed-item:hover{background:var(--tag)}
+.yr-feed-cover{width:88px;flex-shrink:0}
+.yr-feed-cover img{width:88px;aspect-ratio:2/3;object-fit:cover;display:block;border-radius:3px}
+.yr-feed-cover img.sq{aspect-ratio:1/1}
+.yr-feed-cover-ph{width:88px;aspect-ratio:2/3;background:var(--tag);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.yr-feed-body{display:flex;flex-direction:column;gap:0.25rem;min-width:0}
+.yr-feed-cat{font-family:'DM Mono',monospace;font-size:0.43rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem;margin-bottom:0.05rem}
+.yr-feed-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.yr-feed-title{font-size:0.95rem;font-weight:500;letter-spacing:-0.02em;line-height:1.25}
+.yr-feed-sub{font-size:0.68rem;color:var(--muted);font-style:italic}
+.yr-feed-stars{display:flex;align-items:center;gap:0.3rem}
+.yr-feed-stars .s{font-size:0.82rem;color:var(--faint)}.yr-feed-stars .s.on{color:var(--gold)}
+.yr-feed-word{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.yr-feed-note{font-size:0.74rem;line-height:1.65;font-style:italic;color:var(--text);border-left:2px solid var(--border2);padding-left:0.6rem;margin-top:0.2rem}
+.yr-feed-badge{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;border-radius:999px;padding:0.1rem 0.35rem;margin-top:0.15rem}
+.yr-feed-badge.owned{background:#edf7f0;color:#2d6a4f;border:1px solid #2d6a4f}
+.yr-feed-badge.wish{background:#f5eef8;color:#6a2a5a;border:1px solid #6a2a5a}
+.yr-feed-badge.logged{background:var(--tag);color:var(--muted);border:1px solid var(--border2)}
 
-/* ── BANNER: full-width image + text overlay ── */
-.mag-banner{
-  position:relative;cursor:pointer;border-bottom:1px solid var(--border);
-  overflow:hidden;background:var(--tag);
-}
-.mag-banner img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.mag-banner-ph{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--tag)}
-.mag-banner-body{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:1.5rem 1rem 1rem;
-  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 70%,transparent 100%);
-}
-.mag-banner-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem}
-.mag-banner-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.mag-banner-title{font-size:clamp(1.1rem,4vw,1.6rem);font-weight:500;letter-spacing:-0.02em;line-height:1.2;color:#fff}
-.mag-banner-sub{font-size:0.7rem;color:rgba(255,255,255,.65);font-style:italic;margin-top:0.2rem}
-.mag-banner-stars .s{font-size:0.85rem;color:rgba(255,255,255,.35)}.mag-banner-stars .s.on{color:#f4c430}
-.mag-banner-note{font-size:0.74rem;line-height:1.6;font-style:italic;color:rgba(255,255,255,.85);margin-top:0.4rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.mag-banner-badges{display:flex;gap:0.3rem;margin-top:0.3rem;flex-wrap:wrap}
+/* Empty */
+.yr-empty-ed{padding:3rem 1rem;text-align:center;color:var(--faint);font-size:0.76rem;line-height:1.8}
 
-/* ── DUO: two items side by side ── */
-.mag-duo{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
-.mag-duo-item{cursor:pointer;transition:background .12s;border-right:1px solid var(--border);display:flex;flex-direction:column}
-.mag-duo-item:last-child{border-right:none}
-.mag-duo-item:hover{background:var(--tag)}
-.mag-duo-img{aspect-ratio:2/3;overflow:hidden;background:var(--tag)}
-.mag-duo-img img{width:100%;height:100%;object-fit:cover;display:block}
-.mag-duo-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
-.mag-duo-body{padding:0.65rem 0.6rem 0.75rem;display:flex;flex-direction:column;gap:0.25rem}
-.mag-duo-cat{font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem}
-.mag-duo-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.mag-duo-title{font-size:0.78rem;font-weight:500;letter-spacing:-0.01em;line-height:1.2}
-.mag-duo-sub{font-size:0.6rem;color:var(--muted);font-style:italic}
-.mag-duo-stars .s{font-size:0.68rem;color:var(--faint)}.mag-duo-stars .s.on{color:var(--gold)}
-.mag-duo-note{font-size:0.64rem;line-height:1.5;font-style:italic;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:0.15rem}
-
-/* ── STRIP: compact rows ── */
-.mag-strip-item{
-  display:grid;grid-template-columns:56px 1fr auto;
-  gap:0.65rem;align-items:center;
-  padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:background .12s;
-}
-.mag-strip-item:hover{background:var(--tag)}
-.mag-strip-img{width:56px;height:78px;object-fit:cover;border-radius:2px;display:block;background:var(--tag);flex-shrink:0}
-.mag-strip-img.sq{height:56px}
-.mag-strip-ph{width:56px;height:78px;background:var(--tag);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.mag-strip-cat{font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:0.1rem}
-.mag-strip-title{font-size:0.8rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:0.05rem}
-.mag-strip-sub{font-size:0.62rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mag-strip-right{text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:0.15rem}
-.mag-strip-stars .s{font-size:0.6rem;color:var(--faint)}.mag-strip-stars .s.on{color:var(--gold)}
-
-/* ── PULL QUOTE ── */
-.mag-pull{border-top:2px solid var(--text);padding:1rem;cursor:pointer;transition:opacity .15s;border-bottom:1px solid var(--border)}
-.mag-pull:hover{opacity:.82}
-.mag-pull-stars .s{font-size:0.85rem;color:var(--faint)}.mag-pull-stars .s.on{color:var(--gold)}
-.mag-pull-text{font-size:clamp(0.85rem,3vw,1.1rem);line-height:1.65;font-style:italic;margin:0.4rem 0;letter-spacing:-0.01em}
-.mag-pull-attr{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
-.mag-pull-img{width:24px;height:34px;object-fit:cover;border-radius:2px;flex-shrink:0}
-
-/* Badges */
-.mag-badge{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.08em;text-transform:uppercase;border-radius:999px;padding:0.1rem 0.35rem}
-.mag-badge.owned{background:#edf7f0;color:#2d6a4f;border:1px solid #2d6a4f}
-.mag-badge.wish{background:#f5eef8;color:#6a2a5a;border:1px solid #6a2a5a}
-.mag-badge.logged{background:var(--tag);color:var(--muted);border:1px solid var(--border2)}
-
-/* Desktop: wider spreads and bigger text */
+/* Desktop: wider */
 @media(min-width:601px){
-  .yr-masthead{padding:2.5rem 1.5rem 1.5rem;max-width:1100px;margin:0 auto}
-  .yr-nav{max-width:1100px;margin:0 auto}
-  .yr-content{padding:0 1.5rem 6rem;max-width:1100px;margin:0 auto}
-  .mag-spread{grid-template-columns:160px 1fr}
-  .mag-spread-img,.mag-spread-img-ph{width:160px}
-  .mag-spread-title{font-size:1.2rem}
-  .mag-spread-body{padding:1.25rem 1.25rem}
-  .mag-banner img{aspect-ratio:21/9}
-  .mag-strip-item{grid-template-columns:64px 1fr auto;padding:0.75rem 1.25rem}
-  .mag-strip-img{width:64px;height:90px}
-  .mag-strip-ph{width:64px;height:90px}
-  .mag-strip-title{font-size:0.86rem}
+  .yr-masthead{padding:2rem 1.5rem 1.5rem;max-width:760px;margin:0 auto}
+  .yr-nav,.yr-content{max-width:760px;margin:0 auto}
+  .yr-feed-item{grid-template-columns:108px 1fr;gap:1.1rem;padding:1.25rem 1.5rem}
+  .yr-feed-cover,.yr-feed-cover img{width:108px}
+  .yr-feed-cover-ph{width:108px}
+  .yr-feed-title{font-size:1.05rem}
+  .yr-feed-note{font-size:0.78rem}
 }
 
 /* ── LOG ENTRIES ── */
@@ -3490,156 +3430,64 @@ function buildEditorialYear(yr) {
     return;
   }
 
-  // ── MAGAZINE LAYOUT (mobile-first) ──────────────────────────
-  function covImg(item, cls) {
-    const src = item.coverBig || item.coverSm || '';
-    const ph  = item.phBig   || item.phSm   || '';
-    const sq  = item.coverIs === 'sq';
-    const primary = src || ph;
-    if (!primary) return null;
-    if (primary.startsWith('data:') || !ph)
-      return '<img class="' + (cls||'') + (sq?' sq':'') + '" src="' + primary + '" alt="" loading="lazy"/>';
-    return '<img class="' + (cls||'') + (sq?' sq':'') + '" src="' + src + '" alt="" loading="lazy"'
-      + ' data-ph="' + encodeURIComponent(ph) + '"'
-      + ' onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"/>';
-  }
-  function starsHtml(rating, cls) {
-    if (!rating) return '';
-    return '<div class="' + cls + '">'
-      + [1,2,3,4,5].map(function(n){ return '<span class="s' + (n<=rating?' on':'') + '">' + (n<=rating?'★':'☆') + '</span>'; }).join('')
-      + '</div>';
-  }
-  function catHtml(item, dotCls, catCls) {
-    return '<div class="' + catCls + '"><span class="' + dotCls + '" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>';
-  }
-  function badgeHtml(ownership) {
-    var map = {owned:'<span class="mag-badge owned">✓ Owned</span>',wishlist:'<span class="mag-badge wish">♡ Want</span>',logged:'<span class="mag-badge logged">📝 Logged</span>'};
-    return map[ownership] || '';
-  }
-  function noteHtml(note, cls, lines) {
-    if (!note || !note.trim()) return '';
-    return '<div class="' + cls + '" style="-webkit-line-clamp:' + (lines||3) + '">' + note.trim().substring(0, 200) + (note.trim().length > 200 ? '…' : '') + '</div>';
-  }
-
-  var total = allWithDate.length;
+  // ── SIMPLE FEED LAYOUT ──────────────────────────────────────
   var html = '';
-  var i = 0;
 
-  while (i < total) {
-    var rem = total - i;
+  allWithDate.forEach(function(e) {
+    var item = e.item; var rv = e.rv; var ownership = e.ownership;
 
-    // Pull quote every ~8 items
-    if (i > 0 && i % 8 === 0) {
-      var w = allWithDate.slice(Math.max(0, i - 8), i);
-      var pc = null;
-      for (var wi = 0; wi < w.length; wi++) { if (w[wi].rv.note && w[wi].rv.note.trim() && w[wi].rv.rating >= 4) { pc = w[wi]; break; } }
-      if (pc) {
-        var pi = pc.item; var prv = pc.rv;
-        var pSrc = pi.coverSm || pi.phSm || '';
-        var pImg = pSrc ? '<img class="mag-pull-img" src="' + pSrc + '" alt="" loading="lazy"/>' : '';
-        html += '<div class="mag-pull" data-id="' + pi.id + '">'
-          + starsHtml(prv.rating, 'mag-pull-stars')
-          + '<div class="mag-pull-text">&ldquo;' + prv.note.trim().substring(0, 180) + (prv.note.trim().length > 180 ? '&hellip;' : '&rdquo;') + '</div>'
-          + '<div class="mag-pull-attr">' + pImg + pi.title + '</div>'
-          + '</div>';
-      }
+    // Cover
+    var src = item.coverBig || item.coverSm || '';
+    var ph  = item.phBig   || item.phSm   || '';
+    var sq  = item.coverIs === 'sq';
+    var primary = src || ph;
+    var coverHtml;
+    if (primary) {
+      var imgSrc = primary;
+      var errAttr = (!primary.startsWith('data:') && ph && src)
+        ? ' data-ph="' + encodeURIComponent(ph) + '" onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"'
+        : '';
+      coverHtml = '<img' + (sq?' class="sq"':'') + ' src="' + imgSrc + '" alt="" loading="lazy"' + errAttr + '/>';
+    } else {
+      coverHtml = '<div class="yr-feed-cover-ph">' + (CE[item.cat]||'📦') + '</div>';
     }
 
-    // BANNER: first item — full width image with overlay text
-    if (i === 0) {
-      var e = allWithDate[0]; var item = e.item; var rv = e.rv; var ownership = e.ownership;
-      var src = item.coverBig || item.coverSm || '';
-      var ph  = item.phBig   || item.phSm   || '';
-      var imgHtml = src
-        ? '<img src="' + src + '" alt="" loading="lazy"' + (ph ? ' data-ph="' + encodeURIComponent(ph) + '" onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"' : '') + '/>'
-        : '<div class="mag-banner-ph">' + (CE[item.cat]||'📦') + '</div>';
-      html += '<div class="mag-banner" data-id="' + item.id + '">'
-        + imgHtml
-        + '<div class="mag-banner-body">'
-          + '<div class="mag-banner-cat"><span class="mag-banner-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>'
-          + '<div class="mag-banner-title">' + item.title + '</div>'
-          + (item.sub ? '<div class="mag-banner-sub">' + item.sub + '</div>' : '')
-          + starsHtml(rv.rating, 'mag-banner-stars')
-          + noteHtml(rv.note, 'mag-banner-note', 3)
-          + '<div class="mag-banner-badges">' + badgeHtml(ownership) + '</div>'
-        + '</div>'
-      + '</div>';
-      i++; continue;
-    }
-
-    // DUO: pairs of 2
-    if (rem >= 2 && (i % 7 === 1 || i % 7 === 3)) {
-      var pair = allWithDate.slice(i, i + 2);
-      html += '<div class="mag-duo">';
-      pair.forEach(function(e2) {
-        var it = e2.item; var rv2 = e2.rv; var ow = e2.ownership;
-        var sq2 = it.coverIs === 'sq';
-        var ci = covImg(it, 'mag-duo-img-el');
-        html += '<div class="mag-duo-item" data-id="' + it.id + '">'
-          + '<div class="mag-duo-img' + (sq2 ? ' sq' : '') + '">'
-            + (ci || '<div class="ph" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--tag)">' + (CE[it.cat]||'📦') + '</div>')
-          + '</div>'
-          + '<div class="mag-duo-body">'
-            + catHtml(it, 'mag-duo-dot', 'mag-duo-cat')
-            + '<div class="mag-duo-title">' + it.title + '</div>'
-            + (it.sub ? '<div class="mag-duo-sub">' + it.sub + '</div>' : '')
-            + starsHtml(rv2.rating, 'mag-duo-stars')
-            + noteHtml(rv2.note, 'mag-duo-note', 2)
-            + badgeHtml(ow)
-          + '</div>'
+    // Stars row
+    var starsHtml = '';
+    if (rv.rating > 0) {
+      starsHtml = '<div class="yr-feed-stars">'
+        + [1,2,3,4,5].map(function(n){ return '<span class="s' + (n<=rv.rating?' on':'') + '">' + (n<=rv.rating?'★':'☆') + '</span>'; }).join('')
+        + (RW[rv.rating] ? '<span class="yr-feed-word">' + RW[rv.rating] + '</span>' : '')
         + '</div>';
-      });
-      html += '</div>';
-      i += 2; continue;
     }
 
-    // SPREAD: one item, image left, text right — main workhorse block
-    if (rem >= 1 && (i % 7 === 0 || i % 7 === 5 || i % 7 === 6)) {
-      var e3 = allWithDate[i]; var it3 = e3.item; var rv3 = e3.rv; var ow3 = e3.ownership;
-      var src3 = it3.coverSm || it3.phSm || '';
-      var sq3  = it3.coverIs === 'sq';
-      var ci3  = covImg(it3, 'mag-spread-img');
-      var imgEl = ci3 || '<div class="mag-spread-img-ph' + (sq3?' sq':'') + '">' + (CE[it3.cat]||'📦') + '</div>';
-      html += '<div class="mag-spread" data-id="' + it3.id + '">'
-        + imgEl
-        + '<div class="mag-spread-body">'
-          + catHtml(it3, 'mag-spread-dot', 'mag-spread-cat')
-          + '<div class="mag-spread-title">' + it3.title + '</div>'
-          + (it3.sub ? '<div class="mag-spread-sub">' + it3.sub + '</div>' : '')
-          + starsHtml(rv3.rating, 'mag-spread-stars')
-          + (RW[rv3.rating] ? '<div class="mag-spread-word">' + RW[rv3.rating] + '</div>' : '')
-          + noteHtml(rv3.note, 'mag-spread-note', 4)
-          + badgeHtml(ow3)
-        + '</div>'
-      + '</div>';
-      i++; continue;
-    }
+    // Note
+    var noteHtml = rv.note && rv.note.trim()
+      ? '<div class="yr-feed-note">' + rv.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
+      : '';
 
-    // STRIP: compact row
-    var e4 = allWithDate[i]; var it4 = e4.item; var rv4 = e4.rv; var ow4 = e4.ownership;
-    var src4 = it4.coverSm || it4.phSm || '';
-    var sq4  = it4.coverIs === 'sq';
-    var thumb4 = src4
-      ? '<img class="mag-strip-img' + (sq4?' sq':'') + '" src="' + src4 + '" alt="" loading="lazy"/>'
-      : '<div class="mag-strip-ph">' + (CE[it4.cat]||'📦') + '</div>';
-    html += '<div class="mag-strip-item" data-id="' + it4.id + '">'
-      + thumb4
-      + '<div>'
-        + '<div class="mag-strip-cat">' + CL[it4.cat] + '</div>'
-        + '<div class="mag-strip-title">' + it4.title + '</div>'
-        + (it4.sub ? '<div class="mag-strip-sub">' + it4.sub + '</div>' : '')
-      + '</div>'
-      + '<div class="mag-strip-right">'
-        + starsHtml(rv4.rating, 'mag-strip-stars')
-        + badgeHtml(ow4)
+    // Badge
+    var badgeMap = {owned:'owned',wishlist:'wish',logged:'logged'};
+    var badgeCls = badgeMap[ownership] || '';
+    var badgeTxt = {owned:'✓ Owned',wishlist:'♡ Want to buy',logged:'📝 Not owned'}[ownership] || '';
+    var badgeHtml = badgeCls ? '<span class="yr-feed-badge ' + badgeCls + '">' + badgeTxt + '</span>' : '';
+
+    html += '<div class="yr-feed-item" data-id="' + item.id + '">'
+      + '<div class="yr-feed-cover">' + coverHtml + '</div>'
+      + '<div class="yr-feed-body">'
+        + '<div class="yr-feed-cat"><span class="yr-feed-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>'
+        + '<div class="yr-feed-title">' + item.title + '</div>'
+        + (item.sub ? '<div class="yr-feed-sub">' + item.sub + '</div>' : '')
+        + starsHtml
+        + noteHtml
+        + badgeHtml
       + '</div>'
     + '</div>';
-    i++;
-  }
+  });
 
   contentEl.innerHTML = html;
   // Wire up click handlers for all mosaic item types
-  contentEl.querySelectorAll('[data-id]').forEach(el => {
+  contentEl.querySelectorAll('.yr-feed-item').forEach(el => {
     el.addEventListener('click', () => {
       const id = el.dataset.id;
       // Log entries start with 'log_', collection items open the modal
