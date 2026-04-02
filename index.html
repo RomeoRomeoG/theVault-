@@ -709,6 +709,127 @@ select.field-inp{cursor:pointer}
 /* ── DUPLICATE TOAST ── */
 .dup-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:8px;padding:0.6rem 1rem;font-size:0.76rem;z-index:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
 .dup-toast.show{opacity:1}
+
+/* ══ YEAR IN REVIEW — MOBILE (≤600px) ══════════════════════ */
+@media(max-width:600px){
+  /* Slim masthead */
+  .yr-masthead{
+    padding:0.85rem 1rem 0.75rem;
+    grid-template-columns:1fr;
+    border-bottom:2px solid var(--text);
+  }
+  .yr-masthead-year{font-size:3rem}
+  .yr-masthead-right{
+    flex-direction:row;flex-wrap:wrap;gap:0.75rem 1.25rem;
+    text-align:left;margin-top:0.35rem;
+  }
+  .yr-masthead-stat-val{font-size:1rem}
+  .yr-masthead-label{font-size:0.44rem;margin-bottom:0.2rem}
+
+  /* Slim nav */
+  .yr-nav{border-bottom:1px solid var(--border)}
+  .yr-year-tab,.yr-filter-pill{padding:0.45rem 0.55rem;font-size:0.48rem}
+
+  /* Content no padding */
+  .yr-content{padding:0 0 5rem}
+
+  /* ── MOBILE FEED: override ALL magazine blocks ── */
+  .mag-hero,.mag-duo,.mag-strip,.mag-pull{
+    display:block!important;
+    margin:0!important;
+    border-bottom:1px solid var(--border)!important;
+    border-top:none!important;
+    padding:0!important;
+    grid-template-columns:unset!important;
+  }
+
+  /* Each logical item becomes a feed row */
+  .mag-hero,.mag-duo-item,.mag-strip-item,.mag-pull{
+    display:grid!important;
+    grid-template-columns:80px 1fr!important;
+    gap:0.75rem!important;
+    align-items:start!important;
+    padding:0.75rem 1rem!important;
+    cursor:pointer;
+    border-bottom:1px solid var(--border)!important;
+    margin:0!important;
+    background:var(--bg);
+  }
+
+  /* Hero image → small square thumb */
+  .mag-hero-img{
+    grid-column:1;grid-row:1;
+    aspect-ratio:2/3!important;
+    min-height:unset!important;
+    width:80px!important;
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .mag-hero-img img,.mag-hero-img .ph{
+    width:80px!important;height:100%!important;
+    object-fit:cover;display:block;
+  }
+  /* Hero body → right column */
+  .mag-hero-body{
+    grid-column:2;grid-row:1;
+    padding:0!important;min-height:unset!important;
+    display:flex;flex-direction:column;gap:0.2rem;
+  }
+  .mag-hero-title{font-size:0.88rem!important;letter-spacing:-0.01em}
+  .mag-hero-note{font-size:0.7rem!important;line-height:1.5;border-left:2px solid var(--border2);padding-left:0.5rem;margin-top:0.2rem;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* Duo: each item is its own full row */
+  .mag-duo{display:flex!important;flex-direction:column!important;border:none!important}
+  .mag-duo-item{
+    border-right:none!important;
+    border-bottom:1px solid var(--border)!important;
+  }
+  .mag-duo-img{
+    grid-column:1;grid-row:1;
+    width:80px!important;aspect-ratio:2/3!important;
+    margin-bottom:0!important;border-radius:3px;
+    overflow:hidden;
+  }
+  .mag-duo-img.sq{aspect-ratio:1/1!important}
+  .mag-duo-img img,.mag-duo-img .ph{
+    width:80px!important;height:100%!important;
+    object-fit:cover;display:block;
+  }
+  .mag-duo-title{font-size:0.88rem!important;margin-top:0.1rem}
+  .mag-duo-note{display:block!important;font-size:0.68rem;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* Strip items already look like feed rows — just tweak spacing */
+  .mag-strip{border:none!important}
+  .mag-strip-item{
+    grid-template-columns:80px 1fr auto!important;
+    padding:0.75rem 1rem!important;
+  }
+  .mag-strip-item:hover{margin:0!important;padding:0.75rem 1rem!important;background:var(--tag)}
+  .mag-strip-img{width:80px!important;height:110px!important}
+  .mag-strip-img.sq{height:80px!important}
+  .mag-strip-ph{width:80px!important;height:110px!important}
+  .mag-strip-title{font-size:0.84rem}
+  .mag-strip-sub{font-size:0.66rem}
+
+  /* Pull quote: show as a simple highlight, no grid */
+  .mag-pull{
+    display:block!important;
+    padding:1rem!important;
+    background:var(--tag)!important;
+    border-left:3px solid var(--text)!important;
+    margin:0!important;
+  }
+  .mag-pull-text{font-size:0.82rem!important;line-height:1.6}
+  .mag-pull-img{display:none}
+
+  /* Cat line + badges smaller */
+  .mag-cat-line{font-size:0.42rem!important;letter-spacing:0.18em}
+  .mag-badge{font-size:0.4rem!important;padding:0.08rem 0.3rem}
+  .mag-word{font-size:0.44rem}
+  .mag-stars-lg .s{font-size:0.78rem!important}
+  .mag-stars-sm .s{font-size:0.68rem!important}
+  .mag-stars-xs .s{font-size:0.58rem!important}
+}
 </style>
 </head>
 <body>
