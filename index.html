@@ -375,14 +375,14 @@ select.field-inp{cursor:pointer}
 .yr-page-close{position:fixed;top:0.85rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
 
 /* Masthead */
-.yr-masthead{padding:2.5rem 1.5rem 1.5rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:1rem;border-bottom:3px solid var(--text)}
+.yr-masthead{padding:1.5rem 1rem 1rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:0.75rem;border-bottom:3px solid var(--text)}
 @media(max-width:500px){.yr-masthead{grid-template-columns:1fr;gap:0.5rem}}
 .yr-masthead-left{}
 .yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem}
-.yr-masthead-year{font-size:clamp(4rem,14vw,8rem);font-weight:300;letter-spacing:-0.05em;line-height:0.9;color:var(--text)}
+.yr-masthead-year{font-size:clamp(2.5rem,12vw,8rem);font-weight:300;letter-spacing:-0.05em;line-height:0.9;color:var(--text)}
 .yr-masthead-right{display:flex;flex-direction:column;gap:0.6rem;text-align:right;padding-bottom:0.4rem}
 @media(max-width:500px){.yr-masthead-right{text-align:left;flex-direction:row;flex-wrap:wrap;gap:1rem}}
-.yr-masthead-stat-val{font-size:1.6rem;font-weight:300;letter-spacing:-0.03em;line-height:1;color:var(--text)}
+.yr-masthead-stat-val{font-size:clamp(1rem,4vw,1.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1;color:var(--text)}
 .yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint)}
 
 /* Nav strip */
@@ -396,7 +396,7 @@ select.field-inp{cursor:pointer}
 .yr-filter-pill.active{color:var(--text);border-bottom-color:var(--text)}
 
 /* Magazine grid */
-.yr-content{max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem}
+.yr-content{max-width:1100px;margin:0 auto;padding:0 0.75rem 6rem}
 
 /* ── Block types ── */
 
@@ -408,14 +408,14 @@ select.field-inp{cursor:pointer}
   margin:0 -1.5rem;
 }
 .mag-hero:hover{opacity:.88}
-@media(max-width:600px){.mag-hero{grid-template-columns:1fr}}
+@media(max-width:600px){.mag-hero{grid-template-columns:1fr;margin:0 -0.75rem}.mag-hero-img{aspect-ratio:16/9;min-height:180px}.mag-hero-body{padding:1rem 1.25rem 1.25rem;min-height:0}}
 .mag-hero-img{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--tag)}
 .mag-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
 .mag-hero-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--tag)}
-.mag-hero-body{padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:flex-end;gap:0.6rem;min-height:280px}
+.mag-hero-body{padding:2rem 1.75rem;display:flex;flex-direction:column;justify-content:flex-end;gap:0.5rem;min-height:240px}
 @media(max-width:600px){.mag-hero-body{padding:1.25rem 1.5rem;min-height:0}}
 .mag-hero-cat{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
-.mag-hero-title{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:500;letter-spacing:-0.03em;line-height:1.15}
+.mag-hero-title{font-size:clamp(1.1rem,5vw,2.2rem);font-weight:500;letter-spacing:-0.03em;line-height:1.15}
 .mag-hero-sub{font-size:0.75rem;color:var(--muted);font-style:italic}
 .mag-hero-stars{display:flex;gap:2px}
 .mag-hero-stars .s{font-size:1rem;color:var(--faint)}.mag-hero-stars .s.on{color:var(--gold)}
@@ -427,9 +427,9 @@ select.field-inp{cursor:pointer}
 .mag-duo-item{display:flex;flex-direction:column;gap:0;cursor:pointer;transition:opacity .15s;border-right:1px solid var(--border);padding:1.25rem}
 .mag-duo-item:last-child{border-right:none}
 .mag-duo-item:hover{opacity:.82}
-.mag-duo-img{aspect-ratio:2/3;overflow:hidden;border-radius:2px;margin-bottom:0.75rem;background:var(--tag)}
+.mag-duo-img{aspect-ratio:2/3;overflow:hidden;border-radius:2px;margin-bottom:0.5rem;background:var(--tag)}
 .mag-duo-img img{width:100%;height:100%;object-fit:cover;display:block}
-.mag-duo-img.sq{aspect-ratio:1/1}
+.mag-duo-img.sq{aspect-ratio:1/1}@media(max-width:600px){.mag-duo-img{aspect-ratio:3/4}.mag-duo-title{font-size:0.78rem}.mag-duo-note{display:none}}
 .mag-duo-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem}
 .mag-duo-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;display:flex;align-items:center;gap:0.3rem}
 .mag-duo-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
