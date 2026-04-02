@@ -370,7 +370,7 @@ select.field-inp{cursor:pointer}
 .m-upload-lbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
 /* ══ YEAR IN REVIEW — MAGAZINE ══════════════════════════════ */
-.yr-page{display:none;position:fixed;inset:0;background:#f8f7f4;z-index:160;overflow-y:auto}
+.yr-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:160;overflow-y:auto}
 .yr-page.open{display:block}
 .yr-page-close{position:fixed;top:0.85rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
 
@@ -704,10 +704,7 @@ select.field-inp{cursor:pointer}
 .wl-source-badge{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--faint)}
 
 /* ── YEAR FILTER BAR ── */
-.yr-filter-bar{display:flex;gap:0.4rem;padding:0.75rem 1.5rem;max-width:800px;margin:0 auto;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border)}
-.yr-filter-bar::-webkit-scrollbar{display:none}
-.yr-filter-pill{background:none;border:1px solid var(--border);border-radius:999px;padding:0.22rem 0.65rem;font-family:'DM Mono',monospace;font-size:0.54rem;letter-spacing:0.06em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s}
-.yr-filter-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+/* yr-filter-bar styles moved to magazine section */
 
 /* ── DUPLICATE TOAST ── */
 .dup-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:8px;padding:0.6rem 1rem;font-size:0.76rem;z-index:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
