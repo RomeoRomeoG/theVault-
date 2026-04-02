@@ -369,46 +369,111 @@ select.field-inp{cursor:pointer}
 .m-upload-row{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;border-top:1px solid var(--border)}
 .m-upload-lbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
-/* ── YEAR IN REVIEW — EDITORIAL ── */
-.yr-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:160;overflow-y:auto}
+/* ══ YEAR IN REVIEW — MAGAZINE ══════════════════════════════ */
+.yr-page{display:none;position:fixed;inset:0;background:#f8f7f4;z-index:160;overflow-y:auto}
 .yr-page.open{display:block}
-.yr-page-close{position:fixed;top:0.75rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem}
-.yr-masthead{padding:3rem 1.5rem 2rem;max-width:800px;margin:0 auto;border-bottom:2px solid var(--text)}
-.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
-.yr-masthead-year{font-size:clamp(3.5rem,12vw,7rem);font-weight:300;letter-spacing:-0.04em;line-height:1;color:var(--text)}
-.yr-masthead-sub{font-size:0.8rem;color:var(--muted);margin-top:0.5rem;display:flex;gap:1.5rem;flex-wrap:wrap}
-.yr-masthead-stat{display:flex;flex-direction:column;gap:0.1rem}
-.yr-masthead-stat-val{font-size:1.2rem;font-weight:300;letter-spacing:-0.02em;color:var(--text)}
-.yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
-.yr-year-tabs{display:flex;gap:0.4rem;padding:1rem 1.5rem 0;max-width:800px;margin:0 auto}
-.yr-year-tab{background:none;border:1px solid var(--border);border-radius:999px;padding:0.25rem 0.75rem;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);cursor:pointer;transition:all .15s}
-.yr-year-tab.active{background:var(--text);color:var(--bg);border-color:var(--text)}
-.yr-content{max-width:800px;margin:0 auto;padding:2rem 1.5rem 6rem}
-.yr-month-head{display:flex;align-items:baseline;gap:1rem;margin:2.5rem 0 1.25rem;padding-bottom:0.6rem;border-bottom:1px solid var(--border)}
-.yr-month-head:first-child{margin-top:0}
-.yr-month-name{font-size:1.3rem;font-weight:300;letter-spacing:-0.02em}
-.yr-month-count{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
-.yr-editorial-item{display:grid;grid-template-columns:90px 1fr;gap:1.25rem;padding:1.25rem 0;border-bottom:1px solid var(--border)}
-@media(min-width:500px){.yr-editorial-item{grid-template-columns:120px 1fr;gap:1.5rem}}
-.yr-editorial-item:last-child{border-bottom:none}
-.yr-ed-cover{position:relative}
-.yr-ed-cover img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:3px;display:block;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-.yr-ed-cover img.sq{aspect-ratio:1/1}
-.yr-ed-cover-ph{width:100%;aspect-ratio:2/3;background:var(--tag);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
-.yr-ed-body{display:flex;flex-direction:column;gap:0.5rem;min-width:0}
-.yr-ed-cat{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
-.yr-ed-cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.yr-ed-title{font-size:1.05rem;font-weight:500;letter-spacing:-0.02em;line-height:1.25}
-@media(min-width:500px){.yr-ed-title{font-size:1.2rem}}
-.yr-ed-sub{font-size:0.72rem;color:var(--muted);font-style:italic}
-.yr-ed-stars{display:flex;gap:2px}
-.yr-ed-stars .s{font-size:0.9rem;color:var(--faint)}
-.yr-ed-stars .s.on{color:var(--gold)}
-.yr-ed-rating-word{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-left:0.4rem;align-self:center}
-.yr-ed-note{font-size:0.78rem;line-height:1.7;color:var(--text);font-style:italic;border-left:2px solid var(--border2);padding-left:0.75rem;margin-top:0.25rem}
-.yr-ed-meta{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.1rem}
-.yr-ed-tag{font-size:0.62rem;background:var(--tag);color:var(--muted);padding:0.12rem 0.45rem;border-radius:999px}
+.yr-page-close{position:fixed;top:0.85rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
+
+/* Masthead */
+.yr-masthead{padding:2.5rem 1.5rem 1.5rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:1rem;border-bottom:3px solid var(--text)}
+@media(max-width:500px){.yr-masthead{grid-template-columns:1fr;gap:0.5rem}}
+.yr-masthead-left{}
+.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem}
+.yr-masthead-year{font-size:clamp(4rem,14vw,8rem);font-weight:300;letter-spacing:-0.05em;line-height:0.9;color:var(--text)}
+.yr-masthead-right{display:flex;flex-direction:column;gap:0.6rem;text-align:right;padding-bottom:0.4rem}
+@media(max-width:500px){.yr-masthead-right{text-align:left;flex-direction:row;flex-wrap:wrap;gap:1rem}}
+.yr-masthead-stat-val{font-size:1.6rem;font-weight:300;letter-spacing:-0.03em;line-height:1;color:var(--text)}
+.yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint)}
+
+/* Nav strip */
+.yr-nav{display:flex;align-items:center;gap:0;max-width:1100px;margin:0 auto;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.yr-nav::-webkit-scrollbar{display:none}
+.yr-year-tab{background:none;border:none;border-bottom:2px solid transparent;padding:0.6rem 0.85rem;font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px}
+.yr-year-tab.active{color:var(--text);border-bottom-color:var(--text)}
+.yr-year-tabs{display:flex}
+.yr-filter-bar{display:flex;gap:0;padding:0 0 0 0.5rem;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.yr-filter-pill{background:none;border:none;border-bottom:2px solid transparent;padding:0.6rem 0.7rem;font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.08em;color:var(--faint);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px}
+.yr-filter-pill.active{color:var(--text);border-bottom-color:var(--text)}
+
+/* Magazine grid */
+.yr-content{max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem}
+
+/* ── Block types ── */
+
+/* HERO: full-width, image on left, text on right — big impact */
+.mag-hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:opacity .15s;
+  margin:0 -1.5rem;
+}
+.mag-hero:hover{opacity:.88}
+@media(max-width:600px){.mag-hero{grid-template-columns:1fr}}
+.mag-hero-img{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--tag)}
+.mag-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mag-hero-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--tag)}
+.mag-hero-body{padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:flex-end;gap:0.6rem;min-height:280px}
+@media(max-width:600px){.mag-hero-body{padding:1.25rem 1.5rem;min-height:0}}
+.mag-hero-cat{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
+.mag-hero-title{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:500;letter-spacing:-0.03em;line-height:1.15}
+.mag-hero-sub{font-size:0.75rem;color:var(--muted);font-style:italic}
+.mag-hero-stars{display:flex;gap:2px}
+.mag-hero-stars .s{font-size:1rem;color:var(--faint)}.mag-hero-stars .s.on{color:var(--gold)}
+.mag-hero-note{font-size:0.8rem;line-height:1.75;font-style:italic;color:var(--text);border-left:3px solid var(--text);padding-left:0.85rem;margin-top:0.25rem}
+.mag-hero-word{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.1rem}
+
+/* DUO: two items side-by-side with covers */
+.mag-duo{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.mag-duo-item{display:flex;flex-direction:column;gap:0;cursor:pointer;transition:opacity .15s;border-right:1px solid var(--border);padding:1.25rem}
+.mag-duo-item:last-child{border-right:none}
+.mag-duo-item:hover{opacity:.82}
+.mag-duo-img{aspect-ratio:2/3;overflow:hidden;border-radius:2px;margin-bottom:0.75rem;background:var(--tag)}
+.mag-duo-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mag-duo-img.sq{aspect-ratio:1/1}
+.mag-duo-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.mag-duo-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;display:flex;align-items:center;gap:0.3rem}
+.mag-duo-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.mag-duo-title{font-size:0.88rem;font-weight:500;letter-spacing:-0.02em;line-height:1.25;margin-bottom:0.2rem}
+.mag-duo-sub{font-size:0.65rem;color:var(--muted);font-style:italic;margin-bottom:0.3rem}
+.mag-duo-stars .s{font-size:0.72rem;color:var(--faint)}.mag-duo-stars .s.on{color:var(--gold)}
+.mag-duo-note{font-size:0.7rem;line-height:1.6;font-style:italic;color:var(--muted);margin-top:0.35rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* STRIP: compact list rows — show lots fast */
+.mag-strip{border-bottom:1px solid var(--border)}
+.mag-strip-item{display:grid;grid-template-columns:52px 1fr auto;gap:0.75rem;align-items:center;padding:0.7rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.mag-strip-item:last-child{border-bottom:none}
+.mag-strip-item:hover{background:var(--tag);margin:0 -1.5rem;padding-left:1.5rem;padding-right:1.5rem}
+.mag-strip-img{width:52px;height:72px;object-fit:cover;border-radius:2px;display:block;background:var(--tag);flex-shrink:0}
+.mag-strip-img.sq{height:52px}
+.mag-strip-ph{width:52px;height:72px;background:var(--tag);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.mag-strip-info{min-width:0}
+.mag-strip-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:0.15rem}
+.mag-strip-title{font-size:0.82rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:0.1rem}
+.mag-strip-sub{font-size:0.66rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mag-strip-right{text-align:right;flex-shrink:0}
+.mag-strip-stars{display:flex;gap:1px;justify-content:flex-end}
+.mag-strip-stars .s{font-size:0.62rem;color:var(--faint)}.mag-strip-stars .s.on{color:var(--gold)}
+.mag-strip-badge{margin-top:0.2rem}
+
+/* DIVIDER: section break with count */
+.mag-divider{display:flex;align-items:center;gap:0.75rem;padding:1.5rem 0 0.75rem;margin-top:0.5rem}
+.mag-divider-line{flex:1;height:1px;background:var(--border)}
+.mag-divider-text{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+
+/* PULL QUOTE: standalone rating highlight */
+.mag-pull{border-top:3px solid var(--text);border-bottom:1px solid var(--border);padding:1.5rem 0;margin:0;cursor:pointer;transition:opacity .15s}
+.mag-pull:hover{opacity:.82}
+.mag-pull-stars{display:flex;gap:3px;margin-bottom:0.5rem}
+.mag-pull-stars .s{font-size:1.1rem;color:var(--faint)}.mag-pull-stars .s.on{color:var(--gold)}
+.mag-pull-text{font-size:1.1rem;font-weight:400;line-height:1.65;font-style:italic;letter-spacing:-0.01em}
+@media(min-width:500px){.mag-pull-text{font-size:1.25rem}}
+.mag-pull-attr{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-top:0.6rem;display:flex;align-items:center;gap:0.5rem}
+.mag-pull-img{width:28px;height:40px;object-fit:cover;border-radius:2px}
+
 .yr-empty-ed{padding:4rem 1.5rem;text-align:center;color:var(--faint);font-size:0.78rem;line-height:1.8}
+
+/* Shared */
+.mag-cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block}
 
 /* ── LOG ENTRIES ── */
 .log-badge{display:inline-flex;align-items:center;gap:0.25rem;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:999px;padding:0.12rem 0.5rem;white-space:nowrap}
@@ -1125,12 +1190,16 @@ select.field-inp{cursor:pointer}
 <div class="yr-page" id="yr-page">
   <button class="yr-page-close" onclick="closeYearPage()">✕ Close</button>
   <div class="yr-masthead">
-    <div class="yr-masthead-label">Year in Review</div>
-    <div class="yr-masthead-year" id="yr-masthead-year">2025</div>
-    <div class="yr-masthead-sub" id="yr-masthead-sub"></div>
+    <div class="yr-masthead-left">
+      <div class="yr-masthead-label">Year in Review</div>
+      <div class="yr-masthead-year" id="yr-masthead-year">2025</div>
+    </div>
+    <div class="yr-masthead-right" id="yr-masthead-sub"></div>
   </div>
-  <div class="yr-year-tabs" id="yr-year-tabs"></div>
-  <div class="yr-filter-bar" id="yr-filter-bar"></div>
+  <div class="yr-nav">
+    <div class="yr-year-tabs" id="yr-year-tabs"></div>
+    <div class="yr-filter-bar" id="yr-filter-bar"></div>
+  </div>
   <div class="yr-content" id="yr-editorial-content"></div>
 </div>
 
@@ -1226,6 +1295,7 @@ select.field-inp{cursor:pointer}
 </div>
 
 <script>
+
 function enc(s){return encodeURIComponent(s)}
 
 // Game box art placeholder — looks like a physical game case
@@ -3386,7 +3456,7 @@ function buildEditorialYear(yr) {
   ];
   document.getElementById('yr-masthead-year').textContent = yr;
   document.getElementById('yr-masthead-sub').innerHTML = subStats.map(s =>
-    '<div class="yr-masthead-stat"><span class="yr-masthead-stat-val">' + s.val + '</span><span class="yr-masthead-stat-lbl">' + s.lbl + '</span></div>'
+    '<div><div class="yr-masthead-stat-val">' + s.val + '</div><div class="yr-masthead-stat-lbl">' + s.lbl + '</div></div>'
   ).join('');
 
   // Build editorial content
@@ -3396,99 +3466,145 @@ function buildEditorialYear(yr) {
     return;
   }
 
-  // Magazine mosaic — no month grouping, varied sizes
-  let html = '<div class="yr-mosaic">';
-  allWithDate.forEach(({ item, rv, ownership, source }, idx) => {
-    // Every 5th item is a hero (large), rest alternate medium/small
-    const size = (idx % 5 === 0) ? 'hero' : (idx % 3 === 0) ? 'medium' : 'small';
-    {
-      const sq   = item.coverIs === 'sq';
-      const src  = item.coverBig || item.coverSm || '';
-      const ph   = item.phBig   || item.phSm   || '';
-      const primary = src || ph;
+  // ── MAGAZINE LAYOUT ────────────────────────────────────────
+  // Helpers
+  function makeCoverHtml(item) {
+    const src = item.coverBig || item.coverSm || '';
+    const ph  = item.phBig   || item.phSm   || '';
+    const sq  = item.coverIs === 'sq';
+    const primary = src || ph;
+    if (!primary) return '<div class="ph">' + (CE[item.cat]||'📦') + '</div>';
+    if (primary.startsWith('data:') || !ph) {
+      return '<img' + (sq?' class="sq"':'') + ' src="' + primary + '" alt="" loading="lazy"/>';
+    }
+    return '<img' + (sq?' class="sq"':'') + ' src="' + src + '" alt="" loading="lazy"'
+      + ' data-ph="' + encodeURIComponent(ph) + '"'
+      + ' onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"/>';
+  }
 
-      let coverHtml;
-      if (primary) {
-        const cls = sq ? 'sq' : '';
-        if (primary.startsWith('data:') || !ph) {
-          coverHtml = '<img class="' + cls + '" src="' + primary + '" alt="' + item.title + '"/>';
-        } else {
-          coverHtml = '<img class="' + cls + '" src="' + src + '" alt="' + item.title + '"'
-                    + ' data-ph="' + encodeURIComponent(ph) + '"'
-                    + ' onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"/>';
-        }
-      } else {
-        coverHtml = '<div class="yr-ed-cover-ph">' + (CE[item.cat] || '📦') + '</div>';
-      }
+  function makeStarsHtml(rating, size) {
+    if (!rating) return '';
+    const cls = 'mag-stars mag-stars-' + (size||'sm');
+    return '<div class="' + cls + '">' + [1,2,3,4,5].map(n =>
+      '<span class="s' + (n<=rating?' on':'') + '">' + (n<=rating?'★':'☆') + '</span>'
+    ).join('') + '</div>';
+  }
 
-      const stars = rv.rating > 0
-        ? '<div style="display:flex;align-items:center;gap:0.25rem">'
-          + '<div class="yr-ed-stars">' + [1,2,3,4,5].map(n =>
-              '<span class="s' + (n<=rv.rating?' on':'') + '">' + (n<=rv.rating?'★':'☆') + '</span>'
-            ).join('') + '</div>'
-          + (RW[rv.rating] ? '<span class="yr-ed-rating-word">' + RW[rv.rating] + '</span>' : '')
-          + '</div>'
-        : '';
+  function makeBadgeHtml(ownership) {
+    const map = {
+      owned:   '<span class="mag-badge owned">✓ Owned</span>',
+      wishlist:'<span class="mag-badge wish">♡ Want</span>',
+      logged:  '<span class="mag-badge logged">📝 Logged</span>',
+    };
+    return map[ownership] || '';
+  }
 
-      const note = rv.note?.trim()
-        ? '<div class="yr-ed-note">' + rv.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
-        : '';
+  function makeCatHtml(item) {
+    return '<div class="mag-cat-line"><span class="mag-cat-dot" style="background:'
+      + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>';
+  }
 
-      const tags = (item.tags || []).length
-        ? '<div class="yr-ed-meta">' + item.tags.slice(0,3).map(t =>
-            '<span class="yr-ed-tag">' + t + '</span>'
-          ).join('') + '</div>'
-        : '';
+  const total = allWithDate.length;
+  let html = '';
+  let i = 0;
 
-      const ownershipBadge = {
-        owned:    '<span class="log-badge owned">✓ In collection</span>',
-        wishlist: '<span class="log-badge wishlist">♡ Want to buy</span>',
-        logged:   '<span class="log-badge logged">📝 Not owned</span>',
-      }[ownership] || '';
+  while (i < total) {
+    const rem = total - i;
 
-      // Hero: full-width with big cover + text below
-      // Medium: cover left, text right (standard editorial)
-      // Small: compact row
-      if (size === 'hero') {
-        html += '<div class="yr-mosaic-hero" data-id="' + item.id + '">'
-          + '<div class="yr-mosaic-hero-cover">' + coverHtml + '</div>'
-          + '<div class="yr-mosaic-hero-body">'
-            + '<div class="yr-ed-cat"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></div>' + CL[item.cat] + '</div>'
-            + '<div class="yr-mosaic-hero-title">' + item.title + '</div>'
-            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
-            + '<div class="yr-ed-badges">' + ownershipBadge + '</div>'
-            + stars + note + tags
-          + '</div>'
-        + '</div>';
-      } else if (size === 'medium') {
-        html += '<div class="yr-editorial-item" data-id="' + item.id + '">'
-          + '<div class="yr-ed-cover">' + coverHtml + '</div>'
-          + '<div class="yr-ed-body">'
-            + '<div class="yr-ed-cat"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></div>' + CL[item.cat] + '</div>'
-            + '<div class="yr-ed-title">' + item.title + '</div>'
-            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
-            + '<div class="yr-ed-badges">' + ownershipBadge + '</div>'
-            + stars + note + tags
-          + '</div>'
-        + '</div>';
-      } else {
-        // Small: compact list row
-        html += '<div class="yr-mosaic-small" data-id="' + item.id + '">'
-          + '<div class="yr-mosaic-small-cover">' + coverHtml + '</div>'
-          + '<div class="yr-ed-body" style="gap:0.2rem">'
-            + '<div class="yr-ed-cat" style="font-size:0.44rem"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + ';width:5px;height:5px"></div>' + CL[item.cat] + '</div>'
-            + '<div class="yr-ed-title" style="font-size:0.88rem">' + item.title + '</div>'
-            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
-            + stars
-          + '</div>'
+    // ── Pull quote every ~8 items if a good note exists ──
+    if (i > 0 && i % 8 === 0) {
+      const window8 = allWithDate.slice(Math.max(0, i-8), i);
+      const pc = window8.find(function(x){ return x.rv.note && x.rv.note.trim() && x.rv.rating >= 4; });
+      if (pc) {
+        const pi  = pc.item;
+        const prv = pc.rv;
+        const pSrc = pi.coverSm || pi.phSm || '';
+        const pImg = pSrc ? '<img class="mag-pull-img" src="' + pSrc + '" alt="" loading="lazy"/>' : '';
+        html += '<div class="mag-pull" data-id="' + pi.id + '">'
+          + makeStarsHtml(prv.rating, 'lg')
+          + '<div class="mag-pull-text">&ldquo;' + prv.note.trim().substring(0,200)
+            + (prv.note.trim().length > 200 ? '&hellip;' : '&rdquo;') + '</div>'
+          + '<div class="mag-pull-attr">' + pImg
+            + pi.title + (pi.sub ? ' &middot; ' + pi.sub.split('·')[0].trim() : '') + '</div>'
         + '</div>';
       }
     }
-  });
-  html += '</div>';
+
+    // ── HERO: item 0 and every 9th ──
+    if (rem >= 1 && (i === 0 || i % 9 === 0)) {
+      const e = allWithDate[i];
+      const item = e.item; const rv = e.rv; const ownership = e.ownership;
+      const noteHtml = rv.note && rv.note.trim()
+        ? '<div class="mag-note">' + rv.note.trim().substring(0,200)
+          + (rv.note.trim().length > 200 ? '&hellip;' : '') + '</div>'
+        : '';
+      html += '<div class="mag-hero" data-id="' + item.id + '">'
+        + '<div class="mag-hero-img">' + makeCoverHtml(item) + '</div>'
+        + '<div class="mag-hero-body">'
+          + makeCatHtml(item)
+          + '<div class="mag-hero-title">' + item.title + '</div>'
+          + (item.sub ? '<div class="mag-sub">' + item.sub + '</div>' : '')
+          + makeStarsHtml(rv.rating, 'lg')
+          + (RW[rv.rating] ? '<div class="mag-word">' + RW[rv.rating] + '</div>' : '')
+          + noteHtml
+          + makeBadgeHtml(ownership)
+        + '</div>'
+      + '</div>';
+      i++; continue;
+    }
+
+    // ── DUO: pair of items ──
+    if (rem >= 2 && (i % 9 === 1 || i % 9 === 3 || i % 9 === 5)) {
+      html += '<div class="mag-duo">';
+      allWithDate.slice(i, i+2).forEach(function(e) {
+        const item = e.item; const rv = e.rv; const ownership = e.ownership;
+        const sq = item.coverIs === 'sq';
+        html += '<div class="mag-duo-item" data-id="' + item.id + '">'
+          + '<div class="mag-duo-img' + (sq?' sq':'') + '">' + makeCoverHtml(item) + '</div>'
+          + makeCatHtml(item)
+          + '<div class="mag-duo-title">' + item.title + '</div>'
+          + (item.sub ? '<div class="mag-sub">' + item.sub + '</div>' : '')
+          + makeStarsHtml(rv.rating, 'sm')
+          + (rv.note && rv.note.trim()
+              ? '<div class="mag-duo-note">' + rv.note.trim().substring(0,120) + '</div>'
+              : '')
+          + makeBadgeHtml(ownership)
+        + '</div>';
+      });
+      html += '</div>';
+      i += 2; continue;
+    }
+
+    // ── STRIP: compact rows, up to 4 at a time ──
+    var stripN = Math.min(rem, 4);
+    html += '<div class="mag-strip">';
+    allWithDate.slice(i, i+stripN).forEach(function(e) {
+      const item = e.item; const rv = e.rv; const ownership = e.ownership;
+      const src = item.coverSm || item.phSm || '';
+      const sq  = item.coverIs === 'sq';
+      const thumb = src
+        ? '<img class="mag-strip-img' + (sq?' sq':'') + '" src="' + src + '" alt="" loading="lazy"/>'
+        : '<div class="mag-strip-ph">' + (CE[item.cat]||'📦') + '</div>';
+      html += '<div class="mag-strip-item" data-id="' + item.id + '">'
+        + thumb
+        + '<div>'
+          + '<div class="mag-strip-cat">' + CL[item.cat] + '</div>'
+          + '<div class="mag-strip-title">' + item.title + '</div>'
+          + (item.sub ? '<div class="mag-strip-sub">' + item.sub + '</div>' : '')
+        + '</div>'
+        + '<div class="mag-strip-right">'
+          + makeStarsHtml(rv.rating, 'xs')
+          + makeBadgeHtml(ownership)
+        + '</div>'
+      + '</div>';
+    });
+    html += '</div>';
+    i += stripN;
+  }
+
   contentEl.innerHTML = html;
   // Wire up click handlers for all mosaic item types
-  contentEl.querySelectorAll('.yr-editorial-item, .yr-mosaic-hero, .yr-mosaic-small').forEach(el => {
+  contentEl.querySelectorAll('[data-id]').forEach(el => {
     el.addEventListener('click', () => {
       const id = el.dataset.id;
       // Log entries start with 'log_', collection items open the modal
@@ -4001,7 +4117,7 @@ function buildYrFilterBar(allItems) {
     '<button class="yr-filter-pill' + (yrCatFilter === c ? ' active' : '') + '" data-cat="' + c + '">'
     + (c === 'all' ? 'All' : CE[c] + ' ' + CL[c]) + '</button>'
   ).join('')
-  + '<span style="width:1px;height:16px;background:var(--border);flex-shrink:0;align-self:center"></span>'
+  + '<span style="display:inline-block;width:1px;height:16px;background:var(--border);align-self:center;flex-shrink:0;margin:0 0.25rem"></span>'
   + ratingFilters.map(r =>
     '<button class="yr-filter-pill' + (yrRatFilter === r.v ? ' active' : '') + '" data-rat="' + r.v + '">' + r.label + '</button>'
   ).join('');
