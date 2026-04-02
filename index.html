@@ -585,6 +585,24 @@ select.field-inp{cursor:pointer}
   .cat-pill-count{font-family:'DM Mono',monospace;font-size:0.58rem;opacity:0.6}
 }
 @media(min-width:601px){ .cat-strip{ display:none } }
+
+/* ── YEAR MOSAIC LAYOUT ── */
+.yr-mosaic{display:flex;flex-direction:column;gap:0}
+.yr-mosaic-hero{cursor:pointer;padding:1.5rem 0;border-bottom:2px solid var(--text)}
+.yr-mosaic-hero:first-child{padding-top:0}
+.yr-mosaic-hero-cover{margin-bottom:1rem}
+.yr-mosaic-hero-cover img{width:100%;max-height:420px;object-fit:cover;border-radius:4px;display:block;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.yr-mosaic-hero-cover img.sq{max-height:320px}
+.yr-mosaic-hero-cover .yr-ed-cover-ph{height:260px;border-radius:4px}
+.yr-mosaic-hero-title{font-size:1.5rem;font-weight:500;letter-spacing:-0.03em;line-height:1.2;margin:0.35rem 0 0.25rem}
+@media(min-width:500px){.yr-mosaic-hero-title{font-size:2rem}}
+.yr-mosaic-hero-body{display:flex;flex-direction:column;gap:0.4rem}
+.yr-editorial-item{cursor:pointer}
+.yr-mosaic-small{display:grid;grid-template-columns:56px 1fr;gap:0.75rem;padding:0.85rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.yr-mosaic-small:hover{background:var(--tag);margin:0 -1rem;padding-left:1rem;padding-right:1rem}
+.yr-mosaic-small-cover img{width:56px;height:80px;object-fit:cover;border-radius:2px;display:block}
+.yr-mosaic-small-cover img.sq{height:56px}
+.yr-mosaic-small-cover .yr-ed-cover-ph{width:56px;height:80px;border-radius:2px;font-size:1.2rem}
 </style>
 </head>
 <body>
@@ -955,6 +973,13 @@ select.field-inp{cursor:pointer}
           <button class="own-btn active-logged" id="own-logged"   onclick="setLogOwnership('logged')"  >📝 Logged only</button>
           <button class="own-btn"               id="own-owned"    onclick="setLogOwnership('owned')"   >✓ I own it</button>
           <button class="own-btn"               id="own-wishlist" onclick="setLogOwnership('wishlist')">♡ Want to buy</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <label class="field-lbl">Cover Image URL (optional)</label>
+        <div style="display:flex;gap:0.4rem;align-items:center">
+          <input class="field-inp" id="log-img-url" type="url" placeholder="https://… paste any image URL" style="flex:1" oninput="previewLogImg(this.value)"/>
+          <img id="log-img-preview" class="upload-preview sq" alt="preview" style="width:2.2rem;height:2.2rem;flex-shrink:0"/>
         </div>
       </div>
       <div class="field-row">
@@ -1498,9 +1523,13 @@ function updateStats() {
 // ─────────────────────────────────────────────────────────────
 function render() {
   const items = filtered();
-  document.getElementById('sec-lbl').textContent =
-    (CL[cat]||'Collection') + (fR?' · Rated':fN?' · Notes':'') +
-    ' — ' + items.length + ' item' + (items.length !== 1 ? 's' : '');
+  const statusFilterLabel = window._statusFilter ? ' · ' + (ST_LABEL[window._statusFilter]||window._statusFilter) : '';
+  const clearBtn = window._statusFilter
+    ? ' <button onclick="clearStatusFilter()" style="font-size:0.55rem;background:var(--text);color:var(--bg);border:none;border-radius:999px;padding:0.12rem 0.45rem;cursor:pointer;vertical-align:middle">✕ clear filter</button>'
+    : '';
+  document.getElementById('sec-lbl').innerHTML =
+    (CL[cat]||'Collection') + (fR?' · Rated':fN?' · Notes':'') + statusFilterLabel +
+    ' — ' + items.length + ' item' + (items.length !== 1 ? 's' : '') + clearBtn;
   const area = document.getElementById('area');
   if (!items.length) {
     area.innerHTML = ITEMS.length === 0
@@ -1742,6 +1771,8 @@ function openSheet(mode) {
   switchSheet(mode);
   document.getElementById('add-status').className = 'form-status';
   logRating = 0; litLogStars(0); logOwnership = 'logged'; setLogOwnership('logged');
+  const liu=document.getElementById('log-img-url'); if(liu)liu.value='';
+  const lip=document.getElementById('log-img-preview'); if(lip){lip.src='';lip.classList.remove('show');}
   document.getElementById('imp-status').className = 'form-status';
   // Reset search state
   pendingItem = null;
@@ -2003,7 +2034,7 @@ function buildYearBody(yr) {
   const logItems = loadLogEntries()
     .filter(e => e.finishedAt && e.finishedAt.startsWith(String(yr)))
     .map(e => ({
-      item: { id: e.id, cat: e.cat, title: e.title, sub: e.sub || '', tags: [], meta: {}, coverSm: '', coverBig: '', phSm: null, phBig: null, coverIs: '' },
+      item: { id: e.id, cat: e.cat, title: e.title, sub: e.sub || '', tags: [], meta: {}, coverSm: e.coverSm||'', coverBig: e.coverBig||'', phSm: null, phBig: null, coverIs: '' },
       rv:   { rating: e.rating || 0, note: e.note || '', status: '', finishedAt: e.finishedAt },
       source: 'log',
       ownership: e.ownership || 'logged',
@@ -2200,6 +2231,8 @@ async function doSearch() {
     '<div class="sr-loading">Searching…</div>';
   document.getElementById('add-status').className = 'form-status';
   logRating = 0; litLogStars(0); logOwnership = 'logged'; setLogOwnership('logged');
+  const liu=document.getElementById('log-img-url'); if(liu)liu.value='';
+  const lip=document.getElementById('log-img-preview'); if(lip){lip.src='';lip.classList.remove('show');}
 
   try {
     let results = [];
@@ -2230,6 +2263,8 @@ function clearSearchResults() {
   const bprev=document.getElementById('bulk-preview'); if(bprev)bprev.style.display='none';
   document.getElementById('add-status').className = 'form-status';
   logRating = 0; litLogStars(0); logOwnership = 'logged'; setLogOwnership('logged');
+  const liu=document.getElementById('log-img-url'); if(liu)liu.value='';
+  const lip=document.getElementById('log-img-preview'); if(lip){lip.src='';lip.classList.remove('show');}
 }
 
 function renderSearchResults(results, cat) {
@@ -2982,6 +3017,14 @@ function previewAddImg(url) {
 }
 
 // Live preview for manual entry URL field
+function previewLogImg(url) {
+  const p = document.getElementById('log-img-preview');
+  if (url && url.startsWith('http')) {
+    p.src = url; p.classList.add('show');
+    p.onerror = () => p.classList.remove('show');
+  } else { p.classList.remove('show'); }
+}
+
 function previewManualImg(url) {
   const p = document.getElementById('manual-img-preview');
   if (url && url.startsWith('http')) {
@@ -3179,7 +3222,7 @@ function buildEditorialYear(yr) {
   const logItems = loadLogEntries()
     .filter(e => e.finishedAt && e.finishedAt.startsWith(String(yr)))
     .map(e => ({
-      item: { id: e.id, cat: e.cat, title: e.title, sub: e.sub || '', tags: [], meta: {}, coverSm: '', coverBig: '', phSm: null, phBig: null, coverIs: '' },
+      item: { id: e.id, cat: e.cat, title: e.title, sub: e.sub || '', tags: [], meta: {}, coverSm: e.coverSm||'', coverBig: e.coverBig||'', phSm: null, phBig: null, coverIs: '' },
       rv:   { rating: e.rating || 0, note: e.note || '', status: '', finishedAt: e.finishedAt },
       source: 'log',
       ownership: e.ownership || 'logged',
@@ -3226,27 +3269,17 @@ function buildEditorialYear(yr) {
     return;
   }
 
-  // Group by month
-  const byMonth = {};
-  allWithDate.forEach(x => {
-    const m = parseInt(x.rv.finishedAt.substring(5,7)) - 1;
-    if (!byMonth[m]) byMonth[m] = [];
-    byMonth[m].push(x);
-  });
-
-  let html = '';
-  Object.keys(byMonth).map(Number).sort((a,b) => a-b).forEach(m => {
-    const items = byMonth[m];
-    html += '<div class="yr-month-head"><span class="yr-month-name">' + MONTH_NAMES_ED[m] + '</span>'
-          + '<span class="yr-month-count">' + items.length + ' item' + (items.length !== 1 ? 's' : '') + '</span></div>';
-
-    items.forEach(({ item, rv, ownership, source }) => {
+  // Magazine mosaic — no month grouping, varied sizes
+  let html = '<div class="yr-mosaic">';
+  allWithDate.forEach(({ item, rv, ownership, source }, idx) => {
+    // Every 5th item is a hero (large), rest alternate medium/small
+    const size = (idx % 5 === 0) ? 'hero' : (idx % 3 === 0) ? 'medium' : 'small';
+    {
       const sq   = item.coverIs === 'sq';
       const src  = item.coverBig || item.coverSm || '';
       const ph   = item.phBig   || item.phSm   || '';
       const primary = src || ph;
 
-      // Cover
       let coverHtml;
       if (primary) {
         const cls = sq ? 'sq' : '';
@@ -3261,9 +3294,8 @@ function buildEditorialYear(yr) {
         coverHtml = '<div class="yr-ed-cover-ph">' + (CE[item.cat] || '📦') + '</div>';
       }
 
-      // Stars
       const stars = rv.rating > 0
-        ? '<div style="display:flex;align-items:center">'
+        ? '<div style="display:flex;align-items:center;gap:0.25rem">'
           + '<div class="yr-ed-stars">' + [1,2,3,4,5].map(n =>
               '<span class="s' + (n<=rv.rating?' on':'') + '">' + (n<=rv.rating?'★':'☆') + '</span>'
             ).join('') + '</div>'
@@ -3271,52 +3303,65 @@ function buildEditorialYear(yr) {
           + '</div>'
         : '';
 
-      // Note
       const note = rv.note?.trim()
         ? '<div class="yr-ed-note">' + rv.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
         : '';
 
-      // Tags
       const tags = (item.tags || []).length
-        ? '<div class="yr-ed-meta">' + item.tags.slice(0,5).map(t =>
+        ? '<div class="yr-ed-meta">' + item.tags.slice(0,3).map(t =>
             '<span class="yr-ed-tag">' + t + '</span>'
           ).join('') + '</div>'
         : '';
 
-      // Meta fields (platform, pages etc)
-      const metaItems = Object.entries(item.meta || {})
-        .filter(([k,v]) => v && k !== 'Metacritic' && k !== 'Discogs ID')
-        .slice(0, 4)
-        .map(([k,v]) => '<span class="yr-ed-tag" style="background:none;border:1px solid var(--border)">' + k + ': ' + v + '</span>')
-        .join('');
-      const metaRow = metaItems ? '<div class="yr-ed-meta">' + metaItems + '</div>' : '';
-
-      // Ownership badge
       const ownershipBadge = {
         owned:    '<span class="log-badge owned">✓ In collection</span>',
         wishlist: '<span class="log-badge wishlist">♡ Want to buy</span>',
         logged:   '<span class="log-badge logged">📝 Not owned</span>',
       }[ownership] || '';
 
-      html += '<div class="yr-editorial-item" data-id="' + item.id + '" style="cursor:pointer">'
-        + '<div class="yr-ed-cover">' + coverHtml + '</div>'
-        + '<div class="yr-ed-body">'
-          + '<div class="yr-ed-cat"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></div>' + CL[item.cat] + '</div>'
-          + '<div class="yr-ed-title">' + item.title + '</div>'
-          + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
-          + '<div class="yr-ed-badges">' + ownershipBadge + '</div>'
-          + stars
-          + note
-          + tags
-          + metaRow
-        + '</div>'
-      + '</div>';
-    });
+      // Hero: full-width with big cover + text below
+      // Medium: cover left, text right (standard editorial)
+      // Small: compact row
+      if (size === 'hero') {
+        html += '<div class="yr-mosaic-hero" data-id="' + item.id + '">'
+          + '<div class="yr-mosaic-hero-cover">' + coverHtml + '</div>'
+          + '<div class="yr-mosaic-hero-body">'
+            + '<div class="yr-ed-cat"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></div>' + CL[item.cat] + '</div>'
+            + '<div class="yr-mosaic-hero-title">' + item.title + '</div>'
+            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
+            + '<div class="yr-ed-badges">' + ownershipBadge + '</div>'
+            + stars + note + tags
+          + '</div>'
+        + '</div>';
+      } else if (size === 'medium') {
+        html += '<div class="yr-editorial-item" data-id="' + item.id + '">'
+          + '<div class="yr-ed-cover">' + coverHtml + '</div>'
+          + '<div class="yr-ed-body">'
+            + '<div class="yr-ed-cat"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></div>' + CL[item.cat] + '</div>'
+            + '<div class="yr-ed-title">' + item.title + '</div>'
+            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
+            + '<div class="yr-ed-badges">' + ownershipBadge + '</div>'
+            + stars + note + tags
+          + '</div>'
+        + '</div>';
+      } else {
+        // Small: compact list row
+        html += '<div class="yr-mosaic-small" data-id="' + item.id + '">'
+          + '<div class="yr-mosaic-small-cover">' + coverHtml + '</div>'
+          + '<div class="yr-ed-body" style="gap:0.2rem">'
+            + '<div class="yr-ed-cat" style="font-size:0.44rem"><div class="yr-ed-cat-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + ';width:5px;height:5px"></div>' + CL[item.cat] + '</div>'
+            + '<div class="yr-ed-title" style="font-size:0.88rem">' + item.title + '</div>'
+            + (item.sub ? '<div class="yr-ed-sub">' + item.sub + '</div>' : '')
+            + stars
+          + '</div>'
+        + '</div>';
+      }
+    }
   });
-
+  html += '</div>';
   contentEl.innerHTML = html;
-  // Wire up click handlers
-  contentEl.querySelectorAll('.yr-editorial-item').forEach(el => {
+  // Wire up click handlers for all mosaic item types
+  contentEl.querySelectorAll('.yr-editorial-item, .yr-mosaic-hero, .yr-mosaic-small').forEach(el => {
     el.addEventListener('click', () => {
       const id = el.dataset.id;
       closeYearPage();
@@ -3359,6 +3404,7 @@ function doLogEntry() {
   const creator  = document.getElementById('log-creator').value.trim();
   const date     = document.getElementById('log-date').value;
   const note     = document.getElementById('log-note').value.trim();
+  const coverUrl = (document.getElementById('log-img-url')?.value || '').trim();
   const statusEl = document.getElementById('log-status');
 
   if (!title) { statusEl.className='form-status err'; statusEl.textContent='Title is required.'; return; }
@@ -3368,6 +3414,8 @@ function doLogEntry() {
     cat,
     title,
     sub:        creator,
+    coverSm:    coverUrl || '',
+    coverBig:   coverUrl || '',
     finishedAt: date || '',
     rating:     logRating,
     note,
@@ -3532,18 +3580,9 @@ function filterByStatus(status) {
   document.getElementById('pill-rated').classList.remove('active');
   document.getElementById('pill-noted').classList.remove('active');
 
-  // Temporarily override filtered() to show status items
-  // We do this by setting a status filter flag
   window._statusFilter = status;
   render();
   window.scrollTo({top:0, behavior:'smooth'});
-
-  // Show a clear pill so user knows filter is active
-  const lbl = document.getElementById('sec-lbl');
-  if (lbl) {
-    const clearBtn = ' <button onclick="clearStatusFilter()" style="font-size:0.55rem;background:var(--text);color:var(--bg);border:none;border-radius:999px;padding:0.1rem 0.4rem;cursor:pointer;margin-left:0.3rem">✕ clear</button>';
-    lbl.innerHTML = lbl.textContent + clearBtn;
-  }
 }
 
 function clearStatusFilter() {
