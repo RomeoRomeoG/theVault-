@@ -369,111 +369,136 @@ select.field-inp{cursor:pointer}
 .m-upload-row{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;border-top:1px solid var(--border)}
 .m-upload-lbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
-/* ══ YEAR IN REVIEW — MAGAZINE ══════════════════════════════ */
+/* ══ YEAR IN REVIEW — MAGAZINE (mobile-first) ═══════════════ */
 .yr-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:160;overflow-y:auto}
 .yr-page.open{display:block}
-.yr-page-close{position:fixed;top:0.85rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
+.yr-page-close{position:fixed;top:0.75rem;right:0.85rem;background:none;border:none;font-size:0.82rem;color:var(--muted);cursor:pointer;z-index:161;padding:0.4rem;font-family:'DM Sans',sans-serif}
 
 /* Masthead */
-.yr-masthead{padding:1.5rem 1rem 1rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:0.75rem;border-bottom:3px solid var(--text)}
-@media(max-width:500px){.yr-masthead{grid-template-columns:1fr;gap:0.5rem}}
-.yr-masthead-left{}
-.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem}
-.yr-masthead-year{font-size:clamp(2.5rem,12vw,8rem);font-weight:300;letter-spacing:-0.05em;line-height:0.9;color:var(--text)}
-.yr-masthead-right{display:flex;flex-direction:column;gap:0.6rem;text-align:right;padding-bottom:0.4rem}
-@media(max-width:500px){.yr-masthead-right{text-align:left;flex-direction:row;flex-wrap:wrap;gap:1rem}}
-.yr-masthead-stat-val{font-size:clamp(1rem,4vw,1.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1;color:var(--text)}
-.yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint)}
+.yr-masthead{padding:1.25rem 1rem 1rem;border-bottom:2px solid var(--text);display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.yr-masthead-label{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
+.yr-masthead-year{font-size:clamp(2.8rem,10vw,7rem);font-weight:300;letter-spacing:-0.04em;line-height:0.9;color:var(--text)}
+.yr-masthead-right{display:flex;flex-direction:column;gap:0.35rem;text-align:right;flex-shrink:0;padding-bottom:0.2rem}
+.yr-masthead-stat-val{font-size:clamp(0.9rem,3vw,1.4rem);font-weight:300;letter-spacing:-0.02em;line-height:1;color:var(--text)}
+.yr-masthead-stat-lbl{font-family:'DM Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)}
 
-/* Nav strip */
-.yr-nav{display:flex;align-items:center;gap:0;max-width:1100px;margin:0 auto;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+/* Nav */
+.yr-nav{display:flex;align-items:stretch;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .yr-nav::-webkit-scrollbar{display:none}
-.yr-year-tab{background:none;border:none;border-bottom:2px solid transparent;padding:0.6rem 0.85rem;font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px}
-.yr-year-tab.active{color:var(--text);border-bottom-color:var(--text)}
-.yr-year-tabs{display:flex}
-.yr-filter-bar{display:flex;gap:0;padding:0 0 0 0.5rem;overflow-x:auto;scrollbar-width:none;margin-left:auto}
-.yr-filter-pill{background:none;border:none;border-bottom:2px solid transparent;padding:0.6rem 0.7rem;font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.08em;color:var(--faint);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px}
-.yr-filter-pill.active{color:var(--text);border-bottom-color:var(--text)}
+.yr-year-tabs,.yr-filter-bar{display:flex}
+.yr-filter-bar{margin-left:auto}
+.yr-year-tab,.yr-filter-pill{background:none;border:none;border-bottom:2px solid transparent;padding:0.5rem 0.65rem;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.08em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s;position:relative;top:1px;white-space:nowrap}
+.yr-year-tab.active,.yr-filter-pill.active{color:var(--text);border-bottom-color:var(--text)}
+.yr-nav-sep{width:1px;background:var(--border);align-self:stretch;margin:0.35rem 0.2rem;flex-shrink:0}
 
-/* Magazine grid */
-.yr-content{max-width:1100px;margin:0 auto;padding:0 0.75rem 6rem}
+/* Content */
+.yr-content{padding:0 0 5rem}
 
-/* ── Block types ── */
-
-/* HERO: full-width, image on left, text on right — big impact */
-.mag-hero{
-  display:grid;grid-template-columns:1fr 1fr;
+/* ── SPREAD: full-width hero ── */
+.mag-spread{
+  display:grid;grid-template-columns:120px 1fr;
   gap:0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:opacity .15s;
-  margin:0 -1.5rem;
+  cursor:pointer;transition:background .12s;
+  background:var(--surface);
 }
-.mag-hero:hover{opacity:.88}
-@media(max-width:600px){.mag-hero{grid-template-columns:1fr;margin:0 -0.75rem}.mag-hero-img{aspect-ratio:16/9;min-height:180px}.mag-hero-body{padding:1rem 1.25rem 1.25rem;min-height:0}}
-.mag-hero-img{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--tag)}
-.mag-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
-.mag-hero-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--tag)}
-.mag-hero-body{padding:2rem 1.75rem;display:flex;flex-direction:column;justify-content:flex-end;gap:0.5rem;min-height:240px}
-@media(max-width:600px){.mag-hero-body{padding:1.25rem 1.5rem;min-height:0}}
-.mag-hero-cat{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
-.mag-hero-title{font-size:clamp(1.1rem,5vw,2.2rem);font-weight:500;letter-spacing:-0.03em;line-height:1.15}
-.mag-hero-sub{font-size:0.75rem;color:var(--muted);font-style:italic}
-.mag-hero-stars{display:flex;gap:2px}
-.mag-hero-stars .s{font-size:1rem;color:var(--faint)}.mag-hero-stars .s.on{color:var(--gold)}
-.mag-hero-note{font-size:0.8rem;line-height:1.75;font-style:italic;color:var(--text);border-left:3px solid var(--text);padding-left:0.85rem;margin-top:0.25rem}
-.mag-hero-word{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.1rem}
+.mag-spread:hover{background:var(--tag)}
+.mag-spread-img{
+  width:120px;aspect-ratio:2/3;object-fit:cover;
+  display:block;background:var(--tag);flex-shrink:0;
+}
+.mag-spread-img.sq{aspect-ratio:1/1}
+.mag-spread-img-ph{width:120px;aspect-ratio:2/3;background:var(--tag);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.mag-spread-body{padding:1rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;min-width:0;justify-content:center}
+.mag-spread-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem;margin-bottom:0.1rem}
+.mag-spread-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.mag-spread-title{font-size:1rem;font-weight:500;letter-spacing:-0.02em;line-height:1.2}
+.mag-spread-sub{font-size:0.68rem;color:var(--muted);font-style:italic}
+.mag-spread-stars .s{font-size:0.82rem;color:var(--faint)}.mag-spread-stars .s.on{color:var(--gold)}
+.mag-spread-word{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.mag-spread-note{font-size:0.72rem;line-height:1.6;font-style:italic;border-left:2px solid var(--border2);padding-left:0.5rem;color:var(--text);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 
-/* DUO: two items side-by-side with covers */
+/* ── BANNER: full-width image + text overlay ── */
+.mag-banner{
+  position:relative;cursor:pointer;border-bottom:1px solid var(--border);
+  overflow:hidden;background:var(--tag);
+}
+.mag-banner img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.mag-banner-ph{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--tag)}
+.mag-banner-body{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.5rem 1rem 1rem;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 70%,transparent 100%);
+}
+.mag-banner-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem}
+.mag-banner-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.mag-banner-title{font-size:clamp(1.1rem,4vw,1.6rem);font-weight:500;letter-spacing:-0.02em;line-height:1.2;color:#fff}
+.mag-banner-sub{font-size:0.7rem;color:rgba(255,255,255,.65);font-style:italic;margin-top:0.2rem}
+.mag-banner-stars .s{font-size:0.85rem;color:rgba(255,255,255,.35)}.mag-banner-stars .s.on{color:#f4c430}
+.mag-banner-note{font-size:0.74rem;line-height:1.6;font-style:italic;color:rgba(255,255,255,.85);margin-top:0.4rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mag-banner-badges{display:flex;gap:0.3rem;margin-top:0.3rem;flex-wrap:wrap}
+
+/* ── DUO: two items side by side ── */
 .mag-duo{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
-.mag-duo-item{display:flex;flex-direction:column;gap:0;cursor:pointer;transition:opacity .15s;border-right:1px solid var(--border);padding:1.25rem}
+.mag-duo-item{cursor:pointer;transition:background .12s;border-right:1px solid var(--border);display:flex;flex-direction:column}
 .mag-duo-item:last-child{border-right:none}
-.mag-duo-item:hover{opacity:.82}
-.mag-duo-img{aspect-ratio:2/3;overflow:hidden;border-radius:2px;margin-bottom:0.5rem;background:var(--tag)}
+.mag-duo-item:hover{background:var(--tag)}
+.mag-duo-img{aspect-ratio:2/3;overflow:hidden;background:var(--tag)}
 .mag-duo-img img{width:100%;height:100%;object-fit:cover;display:block}
-.mag-duo-img.sq{aspect-ratio:1/1}@media(max-width:600px){.mag-duo-img{aspect-ratio:3/4}.mag-duo-title{font-size:0.78rem}.mag-duo-note{display:none}}
-.mag-duo-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem}
-.mag-duo-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;display:flex;align-items:center;gap:0.3rem}
+.mag-duo-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.mag-duo-body{padding:0.65rem 0.6rem 0.75rem;display:flex;flex-direction:column;gap:0.25rem}
+.mag-duo-cat{font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem}
 .mag-duo-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.mag-duo-title{font-size:0.88rem;font-weight:500;letter-spacing:-0.02em;line-height:1.25;margin-bottom:0.2rem}
-.mag-duo-sub{font-size:0.65rem;color:var(--muted);font-style:italic;margin-bottom:0.3rem}
-.mag-duo-stars .s{font-size:0.72rem;color:var(--faint)}.mag-duo-stars .s.on{color:var(--gold)}
-.mag-duo-note{font-size:0.7rem;line-height:1.6;font-style:italic;color:var(--muted);margin-top:0.35rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mag-duo-title{font-size:0.78rem;font-weight:500;letter-spacing:-0.01em;line-height:1.2}
+.mag-duo-sub{font-size:0.6rem;color:var(--muted);font-style:italic}
+.mag-duo-stars .s{font-size:0.68rem;color:var(--faint)}.mag-duo-stars .s.on{color:var(--gold)}
+.mag-duo-note{font-size:0.64rem;line-height:1.5;font-style:italic;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:0.15rem}
 
-/* STRIP: compact list rows — show lots fast */
-.mag-strip{border-bottom:1px solid var(--border)}
-.mag-strip-item{display:grid;grid-template-columns:52px 1fr auto;gap:0.75rem;align-items:center;padding:0.7rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
-.mag-strip-item:last-child{border-bottom:none}
-.mag-strip-item:hover{background:var(--tag);margin:0 -1.5rem;padding-left:1.5rem;padding-right:1.5rem}
-.mag-strip-img{width:52px;height:72px;object-fit:cover;border-radius:2px;display:block;background:var(--tag);flex-shrink:0}
-.mag-strip-img.sq{height:52px}
-.mag-strip-ph{width:52px;height:72px;background:var(--tag);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.mag-strip-info{min-width:0}
-.mag-strip-cat{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:0.15rem}
-.mag-strip-title{font-size:0.82rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:0.1rem}
-.mag-strip-sub{font-size:0.66rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mag-strip-right{text-align:right;flex-shrink:0}
-.mag-strip-stars{display:flex;gap:1px;justify-content:flex-end}
-.mag-strip-stars .s{font-size:0.62rem;color:var(--faint)}.mag-strip-stars .s.on{color:var(--gold)}
-.mag-strip-badge{margin-top:0.2rem}
+/* ── STRIP: compact rows ── */
+.mag-strip-item{
+  display:grid;grid-template-columns:56px 1fr auto;
+  gap:0.65rem;align-items:center;
+  padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .12s;
+}
+.mag-strip-item:hover{background:var(--tag)}
+.mag-strip-img{width:56px;height:78px;object-fit:cover;border-radius:2px;display:block;background:var(--tag);flex-shrink:0}
+.mag-strip-img.sq{height:56px}
+.mag-strip-ph{width:56px;height:78px;background:var(--tag);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.mag-strip-cat{font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:0.1rem}
+.mag-strip-title{font-size:0.8rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:0.05rem}
+.mag-strip-sub{font-size:0.62rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mag-strip-right{text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:0.15rem}
+.mag-strip-stars .s{font-size:0.6rem;color:var(--faint)}.mag-strip-stars .s.on{color:var(--gold)}
 
-/* DIVIDER: section break with count */
-.mag-divider{display:flex;align-items:center;gap:0.75rem;padding:1.5rem 0 0.75rem;margin-top:0.5rem}
-.mag-divider-line{flex:1;height:1px;background:var(--border)}
-.mag-divider-text{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
-
-/* PULL QUOTE: standalone rating highlight */
-.mag-pull{border-top:3px solid var(--text);border-bottom:1px solid var(--border);padding:1.5rem 0;margin:0;cursor:pointer;transition:opacity .15s}
+/* ── PULL QUOTE ── */
+.mag-pull{border-top:2px solid var(--text);padding:1rem;cursor:pointer;transition:opacity .15s;border-bottom:1px solid var(--border)}
 .mag-pull:hover{opacity:.82}
-.mag-pull-stars{display:flex;gap:3px;margin-bottom:0.5rem}
-.mag-pull-stars .s{font-size:1.1rem;color:var(--faint)}.mag-pull-stars .s.on{color:var(--gold)}
-.mag-pull-text{font-size:1.1rem;font-weight:400;line-height:1.65;font-style:italic;letter-spacing:-0.01em}
-@media(min-width:500px){.mag-pull-text{font-size:1.25rem}}
-.mag-pull-attr{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-top:0.6rem;display:flex;align-items:center;gap:0.5rem}
-.mag-pull-img{width:28px;height:40px;object-fit:cover;border-radius:2px}
+.mag-pull-stars .s{font-size:0.85rem;color:var(--faint)}.mag-pull-stars .s.on{color:var(--gold)}
+.mag-pull-text{font-size:clamp(0.85rem,3vw,1.1rem);line-height:1.65;font-style:italic;margin:0.4rem 0;letter-spacing:-0.01em}
+.mag-pull-attr{font-family:'DM Mono',monospace;font-size:0.46rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
+.mag-pull-img{width:24px;height:34px;object-fit:cover;border-radius:2px;flex-shrink:0}
 
-.yr-empty-ed{padding:4rem 1.5rem;text-align:center;color:var(--faint);font-size:0.78rem;line-height:1.8}
+/* Badges */
+.mag-badge{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:0.42rem;letter-spacing:0.08em;text-transform:uppercase;border-radius:999px;padding:0.1rem 0.35rem}
+.mag-badge.owned{background:#edf7f0;color:#2d6a4f;border:1px solid #2d6a4f}
+.mag-badge.wish{background:#f5eef8;color:#6a2a5a;border:1px solid #6a2a5a}
+.mag-badge.logged{background:var(--tag);color:var(--muted);border:1px solid var(--border2)}
 
-/* Shared */
-.mag-cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block}
+/* Desktop: wider spreads and bigger text */
+@media(min-width:601px){
+  .yr-masthead{padding:2.5rem 1.5rem 1.5rem;max-width:1100px;margin:0 auto}
+  .yr-nav{max-width:1100px;margin:0 auto}
+  .yr-content{padding:0 1.5rem 6rem;max-width:1100px;margin:0 auto}
+  .mag-spread{grid-template-columns:160px 1fr}
+  .mag-spread-img,.mag-spread-img-ph{width:160px}
+  .mag-spread-title{font-size:1.2rem}
+  .mag-spread-body{padding:1.25rem 1.25rem}
+  .mag-banner img{aspect-ratio:21/9}
+  .mag-strip-item{grid-template-columns:64px 1fr auto;padding:0.75rem 1.25rem}
+  .mag-strip-img{width:64px;height:90px}
+  .mag-strip-ph{width:64px;height:90px}
+  .mag-strip-title{font-size:0.86rem}
+}
 
 /* ── LOG ENTRIES ── */
 .log-badge{display:inline-flex;align-items:center;gap:0.25rem;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:999px;padding:0.12rem 0.5rem;white-space:nowrap}
@@ -710,126 +735,7 @@ select.field-inp{cursor:pointer}
 .dup-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:8px;padding:0.6rem 1rem;font-size:0.76rem;z-index:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
 .dup-toast.show{opacity:1}
 
-/* ══ YEAR IN REVIEW — MOBILE (≤600px) ══════════════════════ */
-@media(max-width:600px){
-  /* Slim masthead */
-  .yr-masthead{
-    padding:0.85rem 1rem 0.75rem;
-    grid-template-columns:1fr;
-    border-bottom:2px solid var(--text);
-  }
-  .yr-masthead-year{font-size:3rem}
-  .yr-masthead-right{
-    flex-direction:row;flex-wrap:wrap;gap:0.75rem 1.25rem;
-    text-align:left;margin-top:0.35rem;
-  }
-  .yr-masthead-stat-val{font-size:1rem}
-  .yr-masthead-label{font-size:0.44rem;margin-bottom:0.2rem}
 
-  /* Slim nav */
-  .yr-nav{border-bottom:1px solid var(--border)}
-  .yr-year-tab,.yr-filter-pill{padding:0.45rem 0.55rem;font-size:0.48rem}
-
-  /* Content no padding */
-  .yr-content{padding:0 0 5rem}
-
-  /* ── MOBILE FEED: override ALL magazine blocks ── */
-  .mag-hero,.mag-duo,.mag-strip,.mag-pull{
-    display:block!important;
-    margin:0!important;
-    border-bottom:1px solid var(--border)!important;
-    border-top:none!important;
-    padding:0!important;
-    grid-template-columns:unset!important;
-  }
-
-  /* Each logical item becomes a feed row */
-  .mag-hero,.mag-duo-item,.mag-strip-item,.mag-pull{
-    display:grid!important;
-    grid-template-columns:80px 1fr!important;
-    gap:0.75rem!important;
-    align-items:start!important;
-    padding:0.75rem 1rem!important;
-    cursor:pointer;
-    border-bottom:1px solid var(--border)!important;
-    margin:0!important;
-    background:var(--bg);
-  }
-
-  /* Hero image → small square thumb */
-  .mag-hero-img{
-    grid-column:1;grid-row:1;
-    aspect-ratio:2/3!important;
-    min-height:unset!important;
-    width:80px!important;
-    border-radius:3px;
-    overflow:hidden;
-  }
-  .mag-hero-img img,.mag-hero-img .ph{
-    width:80px!important;height:100%!important;
-    object-fit:cover;display:block;
-  }
-  /* Hero body → right column */
-  .mag-hero-body{
-    grid-column:2;grid-row:1;
-    padding:0!important;min-height:unset!important;
-    display:flex;flex-direction:column;gap:0.2rem;
-  }
-  .mag-hero-title{font-size:0.88rem!important;letter-spacing:-0.01em}
-  .mag-hero-note{font-size:0.7rem!important;line-height:1.5;border-left:2px solid var(--border2);padding-left:0.5rem;margin-top:0.2rem;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-
-  /* Duo: each item is its own full row */
-  .mag-duo{display:flex!important;flex-direction:column!important;border:none!important}
-  .mag-duo-item{
-    border-right:none!important;
-    border-bottom:1px solid var(--border)!important;
-  }
-  .mag-duo-img{
-    grid-column:1;grid-row:1;
-    width:80px!important;aspect-ratio:2/3!important;
-    margin-bottom:0!important;border-radius:3px;
-    overflow:hidden;
-  }
-  .mag-duo-img.sq{aspect-ratio:1/1!important}
-  .mag-duo-img img,.mag-duo-img .ph{
-    width:80px!important;height:100%!important;
-    object-fit:cover;display:block;
-  }
-  .mag-duo-title{font-size:0.88rem!important;margin-top:0.1rem}
-  .mag-duo-note{display:block!important;font-size:0.68rem;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-
-  /* Strip items already look like feed rows — just tweak spacing */
-  .mag-strip{border:none!important}
-  .mag-strip-item{
-    grid-template-columns:80px 1fr auto!important;
-    padding:0.75rem 1rem!important;
-  }
-  .mag-strip-item:hover{margin:0!important;padding:0.75rem 1rem!important;background:var(--tag)}
-  .mag-strip-img{width:80px!important;height:110px!important}
-  .mag-strip-img.sq{height:80px!important}
-  .mag-strip-ph{width:80px!important;height:110px!important}
-  .mag-strip-title{font-size:0.84rem}
-  .mag-strip-sub{font-size:0.66rem}
-
-  /* Pull quote: show as a simple highlight, no grid */
-  .mag-pull{
-    display:block!important;
-    padding:1rem!important;
-    background:var(--tag)!important;
-    border-left:3px solid var(--text)!important;
-    margin:0!important;
-  }
-  .mag-pull-text{font-size:0.82rem!important;line-height:1.6}
-  .mag-pull-img{display:none}
-
-  /* Cat line + badges smaller */
-  .mag-cat-line{font-size:0.42rem!important;letter-spacing:0.18em}
-  .mag-badge{font-size:0.4rem!important;padding:0.08rem 0.3rem}
-  .mag-word{font-size:0.44rem}
-  .mag-stars-lg .s{font-size:0.78rem!important}
-  .mag-stars-sm .s{font-size:0.68rem!important}
-  .mag-stars-xs .s{font-size:0.58rem!important}
-}
 </style>
 </head>
 <body>
@@ -3584,140 +3490,151 @@ function buildEditorialYear(yr) {
     return;
   }
 
-  // ── MAGAZINE LAYOUT ────────────────────────────────────────
-  // Helpers
-  function makeCoverHtml(item) {
+  // ── MAGAZINE LAYOUT (mobile-first) ──────────────────────────
+  function covImg(item, cls) {
     const src = item.coverBig || item.coverSm || '';
     const ph  = item.phBig   || item.phSm   || '';
     const sq  = item.coverIs === 'sq';
     const primary = src || ph;
-    if (!primary) return '<div class="ph">' + (CE[item.cat]||'📦') + '</div>';
-    if (primary.startsWith('data:') || !ph) {
-      return '<img' + (sq?' class="sq"':'') + ' src="' + primary + '" alt="" loading="lazy"/>';
-    }
-    return '<img' + (sq?' class="sq"':'') + ' src="' + src + '" alt="" loading="lazy"'
+    if (!primary) return null;
+    if (primary.startsWith('data:') || !ph)
+      return '<img class="' + (cls||'') + (sq?' sq':'') + '" src="' + primary + '" alt="" loading="lazy"/>';
+    return '<img class="' + (cls||'') + (sq?' sq':'') + '" src="' + src + '" alt="" loading="lazy"'
       + ' data-ph="' + encodeURIComponent(ph) + '"'
       + ' onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"/>';
   }
-
-  function makeStarsHtml(rating, size) {
+  function starsHtml(rating, cls) {
     if (!rating) return '';
-    const cls = 'mag-stars mag-stars-' + (size||'sm');
-    return '<div class="' + cls + '">' + [1,2,3,4,5].map(n =>
-      '<span class="s' + (n<=rating?' on':'') + '">' + (n<=rating?'★':'☆') + '</span>'
-    ).join('') + '</div>';
+    return '<div class="' + cls + '">'
+      + [1,2,3,4,5].map(function(n){ return '<span class="s' + (n<=rating?' on':'') + '">' + (n<=rating?'★':'☆') + '</span>'; }).join('')
+      + '</div>';
   }
-
-  function makeBadgeHtml(ownership) {
-    const map = {
-      owned:   '<span class="mag-badge owned">✓ Owned</span>',
-      wishlist:'<span class="mag-badge wish">♡ Want</span>',
-      logged:  '<span class="mag-badge logged">📝 Logged</span>',
-    };
+  function catHtml(item, dotCls, catCls) {
+    return '<div class="' + catCls + '"><span class="' + dotCls + '" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>';
+  }
+  function badgeHtml(ownership) {
+    var map = {owned:'<span class="mag-badge owned">✓ Owned</span>',wishlist:'<span class="mag-badge wish">♡ Want</span>',logged:'<span class="mag-badge logged">📝 Logged</span>'};
     return map[ownership] || '';
   }
-
-  function makeCatHtml(item) {
-    return '<div class="mag-cat-line"><span class="mag-cat-dot" style="background:'
-      + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>';
+  function noteHtml(note, cls, lines) {
+    if (!note || !note.trim()) return '';
+    return '<div class="' + cls + '" style="-webkit-line-clamp:' + (lines||3) + '">' + note.trim().substring(0, 200) + (note.trim().length > 200 ? '…' : '') + '</div>';
   }
 
-  const total = allWithDate.length;
-  let html = '';
-  let i = 0;
+  var total = allWithDate.length;
+  var html = '';
+  var i = 0;
 
   while (i < total) {
-    const rem = total - i;
+    var rem = total - i;
 
-    // ── Pull quote every ~8 items if a good note exists ──
+    // Pull quote every ~8 items
     if (i > 0 && i % 8 === 0) {
-      const window8 = allWithDate.slice(Math.max(0, i-8), i);
-      const pc = window8.find(function(x){ return x.rv.note && x.rv.note.trim() && x.rv.rating >= 4; });
+      var w = allWithDate.slice(Math.max(0, i - 8), i);
+      var pc = null;
+      for (var wi = 0; wi < w.length; wi++) { if (w[wi].rv.note && w[wi].rv.note.trim() && w[wi].rv.rating >= 4) { pc = w[wi]; break; } }
       if (pc) {
-        const pi  = pc.item;
-        const prv = pc.rv;
-        const pSrc = pi.coverSm || pi.phSm || '';
-        const pImg = pSrc ? '<img class="mag-pull-img" src="' + pSrc + '" alt="" loading="lazy"/>' : '';
+        var pi = pc.item; var prv = pc.rv;
+        var pSrc = pi.coverSm || pi.phSm || '';
+        var pImg = pSrc ? '<img class="mag-pull-img" src="' + pSrc + '" alt="" loading="lazy"/>' : '';
         html += '<div class="mag-pull" data-id="' + pi.id + '">'
-          + makeStarsHtml(prv.rating, 'lg')
-          + '<div class="mag-pull-text">&ldquo;' + prv.note.trim().substring(0,200)
-            + (prv.note.trim().length > 200 ? '&hellip;' : '&rdquo;') + '</div>'
-          + '<div class="mag-pull-attr">' + pImg
-            + pi.title + (pi.sub ? ' &middot; ' + pi.sub.split('·')[0].trim() : '') + '</div>'
-        + '</div>';
+          + starsHtml(prv.rating, 'mag-pull-stars')
+          + '<div class="mag-pull-text">&ldquo;' + prv.note.trim().substring(0, 180) + (prv.note.trim().length > 180 ? '&hellip;' : '&rdquo;') + '</div>'
+          + '<div class="mag-pull-attr">' + pImg + pi.title + '</div>'
+          + '</div>';
       }
     }
 
-    // ── HERO: item 0 and every 9th ──
-    if (rem >= 1 && (i === 0 || i % 9 === 0)) {
-      const e = allWithDate[i];
-      const item = e.item; const rv = e.rv; const ownership = e.ownership;
-      const noteHtml = rv.note && rv.note.trim()
-        ? '<div class="mag-note">' + rv.note.trim().substring(0,200)
-          + (rv.note.trim().length > 200 ? '&hellip;' : '') + '</div>'
-        : '';
-      html += '<div class="mag-hero" data-id="' + item.id + '">'
-        + '<div class="mag-hero-img">' + makeCoverHtml(item) + '</div>'
-        + '<div class="mag-hero-body">'
-          + makeCatHtml(item)
-          + '<div class="mag-hero-title">' + item.title + '</div>'
-          + (item.sub ? '<div class="mag-sub">' + item.sub + '</div>' : '')
-          + makeStarsHtml(rv.rating, 'lg')
-          + (RW[rv.rating] ? '<div class="mag-word">' + RW[rv.rating] + '</div>' : '')
-          + noteHtml
-          + makeBadgeHtml(ownership)
+    // BANNER: first item — full width image with overlay text
+    if (i === 0) {
+      var e = allWithDate[0]; var item = e.item; var rv = e.rv; var ownership = e.ownership;
+      var src = item.coverBig || item.coverSm || '';
+      var ph  = item.phBig   || item.phSm   || '';
+      var imgHtml = src
+        ? '<img src="' + src + '" alt="" loading="lazy"' + (ph ? ' data-ph="' + encodeURIComponent(ph) + '" onerror="this.onerror=null;this.src=decodeURIComponent(this.dataset.ph)"' : '') + '/>'
+        : '<div class="mag-banner-ph">' + (CE[item.cat]||'📦') + '</div>';
+      html += '<div class="mag-banner" data-id="' + item.id + '">'
+        + imgHtml
+        + '<div class="mag-banner-body">'
+          + '<div class="mag-banner-cat"><span class="mag-banner-dot" style="background:' + (CAT_COL_ED[item.cat]||'var(--faint)') + '"></span>' + CL[item.cat] + '</div>'
+          + '<div class="mag-banner-title">' + item.title + '</div>'
+          + (item.sub ? '<div class="mag-banner-sub">' + item.sub + '</div>' : '')
+          + starsHtml(rv.rating, 'mag-banner-stars')
+          + noteHtml(rv.note, 'mag-banner-note', 3)
+          + '<div class="mag-banner-badges">' + badgeHtml(ownership) + '</div>'
         + '</div>'
       + '</div>';
       i++; continue;
     }
 
-    // ── DUO: pair of items ──
-    if (rem >= 2 && (i % 9 === 1 || i % 9 === 3 || i % 9 === 5)) {
+    // DUO: pairs of 2
+    if (rem >= 2 && (i % 7 === 1 || i % 7 === 3)) {
+      var pair = allWithDate.slice(i, i + 2);
       html += '<div class="mag-duo">';
-      allWithDate.slice(i, i+2).forEach(function(e) {
-        const item = e.item; const rv = e.rv; const ownership = e.ownership;
-        const sq = item.coverIs === 'sq';
-        html += '<div class="mag-duo-item" data-id="' + item.id + '">'
-          + '<div class="mag-duo-img' + (sq?' sq':'') + '">' + makeCoverHtml(item) + '</div>'
-          + makeCatHtml(item)
-          + '<div class="mag-duo-title">' + item.title + '</div>'
-          + (item.sub ? '<div class="mag-sub">' + item.sub + '</div>' : '')
-          + makeStarsHtml(rv.rating, 'sm')
-          + (rv.note && rv.note.trim()
-              ? '<div class="mag-duo-note">' + rv.note.trim().substring(0,120) + '</div>'
-              : '')
-          + makeBadgeHtml(ownership)
+      pair.forEach(function(e2) {
+        var it = e2.item; var rv2 = e2.rv; var ow = e2.ownership;
+        var sq2 = it.coverIs === 'sq';
+        var ci = covImg(it, 'mag-duo-img-el');
+        html += '<div class="mag-duo-item" data-id="' + it.id + '">'
+          + '<div class="mag-duo-img' + (sq2 ? ' sq' : '') + '">'
+            + (ci || '<div class="ph" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--tag)">' + (CE[it.cat]||'📦') + '</div>')
+          + '</div>'
+          + '<div class="mag-duo-body">'
+            + catHtml(it, 'mag-duo-dot', 'mag-duo-cat')
+            + '<div class="mag-duo-title">' + it.title + '</div>'
+            + (it.sub ? '<div class="mag-duo-sub">' + it.sub + '</div>' : '')
+            + starsHtml(rv2.rating, 'mag-duo-stars')
+            + noteHtml(rv2.note, 'mag-duo-note', 2)
+            + badgeHtml(ow)
+          + '</div>'
         + '</div>';
       });
       html += '</div>';
       i += 2; continue;
     }
 
-    // ── STRIP: compact rows, up to 4 at a time ──
-    var stripN = Math.min(rem, 4);
-    html += '<div class="mag-strip">';
-    allWithDate.slice(i, i+stripN).forEach(function(e) {
-      const item = e.item; const rv = e.rv; const ownership = e.ownership;
-      const src = item.coverSm || item.phSm || '';
-      const sq  = item.coverIs === 'sq';
-      const thumb = src
-        ? '<img class="mag-strip-img' + (sq?' sq':'') + '" src="' + src + '" alt="" loading="lazy"/>'
-        : '<div class="mag-strip-ph">' + (CE[item.cat]||'📦') + '</div>';
-      html += '<div class="mag-strip-item" data-id="' + item.id + '">'
-        + thumb
-        + '<div>'
-          + '<div class="mag-strip-cat">' + CL[item.cat] + '</div>'
-          + '<div class="mag-strip-title">' + item.title + '</div>'
-          + (item.sub ? '<div class="mag-strip-sub">' + item.sub + '</div>' : '')
-        + '</div>'
-        + '<div class="mag-strip-right">'
-          + makeStarsHtml(rv.rating, 'xs')
-          + makeBadgeHtml(ownership)
+    // SPREAD: one item, image left, text right — main workhorse block
+    if (rem >= 1 && (i % 7 === 0 || i % 7 === 5 || i % 7 === 6)) {
+      var e3 = allWithDate[i]; var it3 = e3.item; var rv3 = e3.rv; var ow3 = e3.ownership;
+      var src3 = it3.coverSm || it3.phSm || '';
+      var sq3  = it3.coverIs === 'sq';
+      var ci3  = covImg(it3, 'mag-spread-img');
+      var imgEl = ci3 || '<div class="mag-spread-img-ph' + (sq3?' sq':'') + '">' + (CE[it3.cat]||'📦') + '</div>';
+      html += '<div class="mag-spread" data-id="' + it3.id + '">'
+        + imgEl
+        + '<div class="mag-spread-body">'
+          + catHtml(it3, 'mag-spread-dot', 'mag-spread-cat')
+          + '<div class="mag-spread-title">' + it3.title + '</div>'
+          + (it3.sub ? '<div class="mag-spread-sub">' + it3.sub + '</div>' : '')
+          + starsHtml(rv3.rating, 'mag-spread-stars')
+          + (RW[rv3.rating] ? '<div class="mag-spread-word">' + RW[rv3.rating] + '</div>' : '')
+          + noteHtml(rv3.note, 'mag-spread-note', 4)
+          + badgeHtml(ow3)
         + '</div>'
       + '</div>';
-    });
-    html += '</div>';
-    i += stripN;
+      i++; continue;
+    }
+
+    // STRIP: compact row
+    var e4 = allWithDate[i]; var it4 = e4.item; var rv4 = e4.rv; var ow4 = e4.ownership;
+    var src4 = it4.coverSm || it4.phSm || '';
+    var sq4  = it4.coverIs === 'sq';
+    var thumb4 = src4
+      ? '<img class="mag-strip-img' + (sq4?' sq':'') + '" src="' + src4 + '" alt="" loading="lazy"/>'
+      : '<div class="mag-strip-ph">' + (CE[it4.cat]||'📦') + '</div>';
+    html += '<div class="mag-strip-item" data-id="' + it4.id + '">'
+      + thumb4
+      + '<div>'
+        + '<div class="mag-strip-cat">' + CL[it4.cat] + '</div>'
+        + '<div class="mag-strip-title">' + it4.title + '</div>'
+        + (it4.sub ? '<div class="mag-strip-sub">' + it4.sub + '</div>' : '')
+      + '</div>'
+      + '<div class="mag-strip-right">'
+        + starsHtml(rv4.rating, 'mag-strip-stars')
+        + badgeHtml(ow4)
+      + '</div>'
+    + '</div>';
+    i++;
   }
 
   contentEl.innerHTML = html;
