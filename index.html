@@ -603,6 +603,50 @@ select.field-inp{cursor:pointer}
 .yr-mosaic-small-cover img{width:56px;height:80px;object-fit:cover;border-radius:2px;display:block}
 .yr-mosaic-small-cover img.sq{height:56px}
 .yr-mosaic-small-cover .yr-ed-cover-ph{width:56px;height:80px;border-radius:2px;font-size:1.2rem}
+
+/* ── CURRENTLY SECTION ── */
+.currently-section{margin-bottom:1rem;display:none}
+.currently-section.has-items{display:block}
+.currently-label{font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+.currently-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.currently-row{display:flex;gap:0.5rem;overflow-x:auto;scrollbar-width:none;padding-bottom:0.25rem}
+.currently-row::-webkit-scrollbar{display:none}
+.currently-card{flex-shrink:0;width:80px;cursor:pointer;position:relative}
+@media(min-width:500px){.currently-card{width:96px}}
+.currently-card img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;display:block;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.currently-card .c-sq{aspect-ratio:1/1}
+.currently-card-ph{width:100%;aspect-ratio:2/3;background:var(--tag);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.currently-pip{position:absolute;bottom:3px;left:3px;right:3px;background:rgba(26,25,22,.75);backdrop-filter:blur(4px);border-radius:3px;padding:0.18rem 0.3rem;font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.06em;text-transform:uppercase;color:#fff;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.currently-pip.playing{border-top:2px solid var(--blue)}
+.currently-pip.reading{border-top:2px solid var(--green)}
+
+/* ── WISHLIST PAGE ── */
+.wishlist-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:150;overflow-y:auto;padding:1.5rem 1rem 6rem}
+.wishlist-page.open{display:block}
+.wishlist-close{position:fixed;top:0.75rem;right:1rem;background:none;border:none;font-size:0.9rem;color:var(--muted);cursor:pointer;z-index:151;padding:0.4rem}
+.wishlist-h1{font-size:1.5rem;font-weight:300;letter-spacing:-0.03em;margin-bottom:0.25rem}
+.wishlist-sub{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:1.5rem}
+.wishlist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
+@media(min-width:500px){.wishlist-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:700px){.wishlist-grid{grid-template-columns:repeat(5,1fr)}}
+.wl-item{cursor:pointer;border-radius:4px;overflow:hidden;background:var(--tag);position:relative}
+.wl-item img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+.wl-item img.sq{aspect-ratio:1/1}
+.wl-item-ph{width:100%;aspect-ratio:2/3;background:var(--tag);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.wl-item-info{padding:0.4rem 0.35rem 0.5rem;display:flex;flex-direction:column;gap:0.1rem}
+.wl-item-title{font-size:0.7rem;font-weight:500;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3}
+.wl-item-sub{font-size:0.6rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wl-source-badge{font-family:'DM Mono',monospace;font-size:0.44rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--faint)}
+
+/* ── YEAR FILTER BAR ── */
+.yr-filter-bar{display:flex;gap:0.4rem;padding:0.75rem 1.5rem;max-width:800px;margin:0 auto;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border)}
+.yr-filter-bar::-webkit-scrollbar{display:none}
+.yr-filter-pill{background:none;border:1px solid var(--border);border-radius:999px;padding:0.22rem 0.65rem;font-family:'DM Mono',monospace;font-size:0.54rem;letter-spacing:0.06em;color:var(--muted);cursor:pointer;flex-shrink:0;transition:all .15s}
+.yr-filter-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+/* ── DUPLICATE TOAST ── */
+.dup-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:8px;padding:0.6rem 1rem;font-size:0.76rem;z-index:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+.dup-toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -617,6 +661,10 @@ select.field-inp{cursor:pointer}
     <button class="btn-icon" onclick="openSheet('import')">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       Import
+    </button>
+    <button class="btn-icon" onclick="openWishlist()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Wishlist
     </button>
     <button class="btn-icon" onclick="openStatsPage()">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -647,6 +695,10 @@ select.field-inp{cursor:pointer}
   <button class="mob-menu-item" onclick="closeMobMenu();openSheet('add')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     Add Item
+  </button>
+  <button class="mob-menu-item" onclick="closeMobMenu();openWishlist()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Wishlist
   </button>
   <button class="mob-menu-item" onclick="closeMobMenu();openYearPage()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -715,6 +767,10 @@ select.field-inp{cursor:pointer}
 </nav>
 
 <main>
+  <div class="currently-section" id="currently-section">
+    <div class="currently-label">Currently</div>
+    <div class="currently-row" id="currently-row"></div>
+  </div>
   <div class="stats-bar">
     <div class="sb"><div class="sb-lbl">Total Items</div><div class="sb-val" id="sb-tot">0</div><div class="sb-sub">in collection</div></div>
     <div class="sb"><div class="sb-lbl">Avg Rating</div><div class="sb-val" id="sb-avg">—</div><div class="sb-sub" id="sb-rct">0 rated</div></div>
@@ -1078,7 +1134,59 @@ select.field-inp{cursor:pointer}
     <div class="yr-masthead-sub" id="yr-masthead-sub"></div>
   </div>
   <div class="yr-year-tabs" id="yr-year-tabs"></div>
+  <div class="yr-filter-bar" id="yr-filter-bar"></div>
   <div class="yr-content" id="yr-editorial-content"></div>
+</div>
+
+<!-- LOG ITEM DETAIL SHEET -->
+<div class="sheet-ov" id="log-item-ov" onclick="handleLogItemOv(event)">
+  <div class="sheet" style="max-height:85vh">
+    <div class="sheet-handle"><span></span></div>
+    <div class="sheet-head">
+      <span class="sheet-title" id="log-item-title">Log Entry</span>
+      <button class="m-close" onclick="closeLogItem()">✕</button>
+    </div>
+    <div class="sheet-body" id="log-item-body" style="gap:1rem">
+      <!-- cover + basic info -->
+      <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+        <div id="log-item-cover" style="border-radius:4px;overflow:hidden;background:var(--tag)"></div>
+        <div style="display:flex;flex-direction:column;gap:0.35rem">
+          <div id="log-item-cat" style="font-family:'DM Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)"></div>
+          <div id="log-item-name" style="font-size:1rem;font-weight:500;letter-spacing:-0.02em;line-height:1.2"></div>
+          <div id="log-item-sub" style="font-size:0.72rem;color:var(--muted);font-style:italic"></div>
+          <div id="log-item-stars" style="display:flex;gap:2px;margin-top:0.1rem"></div>
+          <div id="log-item-badge" style="margin-top:0.1rem"></div>
+          <div id="log-item-date" style="font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--faint)"></div>
+        </div>
+      </div>
+      <!-- note -->
+      <div id="log-item-note-wrap" style="display:none">
+        <div style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-bottom:0.35rem">Your notes</div>
+        <div id="log-item-note" style="font-size:0.78rem;line-height:1.7;font-style:italic;border-left:2px solid var(--border2);padding-left:0.75rem;color:var(--text)"></div>
+      </div>
+      <!-- actions -->
+      <div style="display:flex;flex-direction:column;gap:0.5rem;padding-top:0.25rem;border-top:1px solid var(--border)">
+        <button class="btn-sv" onclick="logItemMoveToCollection()" style="width:100%">
+          ✚ Add to Collection
+        </button>
+        <button class="btn-cl" onclick="logItemEdit()" style="width:100%">
+          ✎ Edit this entry
+        </button>
+        <button class="btn-del" onclick="logItemDelete()" style="width:100%;justify-content:center">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          Remove log entry
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WISHLIST PAGE -->
+<div class="wishlist-page" id="wishlist-page">
+  <button class="wishlist-close" onclick="closeWishlist()">✕ Close</button>
+  <h2 class="wishlist-h1">♡ <strong>Wishlist</strong></h2>
+  <p class="wishlist-sub" id="wishlist-sub">Everything you want to get</p>
+  <div class="wishlist-grid" id="wishlist-grid"></div>
 </div>
 
 <!-- RANDOM -->
@@ -1430,6 +1538,7 @@ function init() {
 
   updateStats();
   render();
+  renderCurrently();
 }
 
 function refreshCounts() {
@@ -1540,6 +1649,7 @@ function render() {
   if (view === 'grid')       renderGrid(items, area);
   else if (view === 'shelf') renderShelf(items, area);
   else                       renderList(items, area);
+  renderCurrently();
 }
 
 // ── Cover image helper — graceful fallback via src swap ───────
@@ -2041,8 +2151,17 @@ function buildYearBody(yr) {
     }));
 
   // Merge and sort by finishedAt
-  const allWithDate = [...collectionItems, ...logItems]
+  const allWithDateFull = [...collectionItems, ...logItems]
     .sort((a,b) => a.rv.finishedAt.localeCompare(b.rv.finishedAt));
+
+  // Build filter bar (uses full unfiltered list for category availability)
+  buildYrFilterBar(allWithDateFull);
+
+  // Apply category + rating filters
+  const allWithDate = allWithDateFull.filter(x =>
+    (yrCatFilter === 'all' || x.item.cat === yrCatFilter) &&
+    (yrRatFilter === 0     || x.rv.rating >= yrRatFilter)
+  );
 
   const CAT_COL = { games:'var(--green)', board:'var(--amber)', records:'var(--blue)', movies:'var(--purple)' };
   const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -2154,6 +2273,7 @@ document.addEventListener('keydown', e => {
     if      (document.getElementById('yr-page').classList.contains('open'))   closeYearPage();
     else if (document.getElementById('stats-page').classList.contains('open')) closeStatsPage();
     else if (document.getElementById('rand-ov').classList.contains('open'))    closeRandom();
+    else if (document.getElementById('log-item-ov').classList.contains('open')) closeLogItem();
     else if (document.getElementById('sheet-ov').classList.contains('open'))   closeSheet();
     else closeModal();
   }
@@ -2167,6 +2287,7 @@ function swipeClose(oid, fn) {
 swipeClose('overlay',  closeModal);
 swipeClose('rand-ov',  closeRandom);
 swipeClose('sheet-ov', closeSheet);
+swipeClose('log-item-ov', closeLogItem);
 
 // ─────────────────────────────────────────────────────────────
 // DELETE ITEM
@@ -2344,6 +2465,7 @@ function doAdd() {
     item.phSm = ph; item.phBig = ph;
   }
 
+  if (checkDuplicate(item.title)) showDupToast(item.title);
   ITEMS.push(item);
   saveRv(newId, {rating:0, note:'', status:'', addedAt:Date.now(), finishedAt:''});
   const imp = loadImported(); imp.push(item); saveImported(imp);
@@ -2953,6 +3075,7 @@ function doManualAdd() {
   const statusEl   = document.getElementById('manual-status');
 
   if (!titleVal) { statusEl.className='form-status err'; statusEl.textContent='Title is required.'; return; }
+  if (checkDuplicate(titleVal)) showDupToast(titleVal);
 
   const parts = [creator, platform, year].filter(Boolean);
   const sub   = parts.join(' · ');
@@ -2980,6 +3103,7 @@ function doManualAdd() {
     desc: descVal, meta: {}, spine: '#1a3a6a',
   };
 
+  if (checkDuplicate(item.title)) showDupToast(item.title);
   ITEMS.push(item);
   saveRv(newId, {rating:0, note:'', status:'', addedAt:Date.now(), finishedAt:''});
   const imp = loadImported(); imp.push(item); saveImported(imp);
@@ -3229,8 +3353,17 @@ function buildEditorialYear(yr) {
     }));
 
   // Merge and sort by finishedAt
-  const allWithDate = [...collectionItems, ...logItems]
+  const allWithDateFull = [...collectionItems, ...logItems]
     .sort((a,b) => a.rv.finishedAt.localeCompare(b.rv.finishedAt));
+
+  // Build filter bar (uses full unfiltered list for category availability)
+  buildYrFilterBar(allWithDateFull);
+
+  // Apply category + rating filters
+  const allWithDate = allWithDateFull.filter(x =>
+    (yrCatFilter === 'all' || x.item.cat === yrCatFilter) &&
+    (yrRatFilter === 0     || x.rv.rating >= yrRatFilter)
+  );
 
   // Year tabs — unique years across all items
   const collectionYears = ITEMS.map(item => {
@@ -3364,8 +3497,13 @@ function buildEditorialYear(yr) {
   contentEl.querySelectorAll('.yr-editorial-item, .yr-mosaic-hero, .yr-mosaic-small').forEach(el => {
     el.addEventListener('click', () => {
       const id = el.dataset.id;
-      closeYearPage();
-      setTimeout(() => openModal(id), 80);
+      // Log entries start with 'log_', collection items open the modal
+      if (id && id.startsWith('log_')) {
+        openLogItem(id);
+      } else if (id) {
+        closeYearPage();
+        setTimeout(() => openModal(id), 80);
+      }
     });
   });
 }
@@ -3590,6 +3728,306 @@ function clearStatusFilter() {
   render();
 }
 
+// ─────────────────────────────────────────────────────────────
+// LOG ITEM DETAIL
+// Shows logged items that aren't in the collection.
+// ─────────────────────────────────────────────────────────────
+let currentLogId = null;
+
+function openLogItem(logId) {
+  const entries = loadLogEntries();
+  const entry   = entries.find(e => e.id === logId);
+  if (!entry) return;
+  currentLogId = logId;
+
+  // Cover
+  const covEl = document.getElementById('log-item-cover');
+  if (entry.coverSm) {
+    const covImg = document.createElement('img');
+    covImg.src = entry.coverSm;
+    covImg.style.cssText = 'width:100%;aspect-ratio:2/3;object-fit:cover;display:block';
+    covImg.onerror = function(){ this.style.display='none'; };
+    covEl.innerHTML = '';
+    covEl.appendChild(covImg);
+  } else {
+    covEl.innerHTML = '<div style="width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;font-size:2rem">' + (CE[entry.cat]||'📦') + '</div>';
+  }
+
+  document.getElementById('log-item-title').textContent = entry.title;
+  document.getElementById('log-item-name').textContent  = entry.title;
+  document.getElementById('log-item-cat').textContent   = CL[entry.cat] || entry.cat;
+  document.getElementById('log-item-sub').textContent   = entry.sub || '';
+
+  // Stars
+  const starsEl = document.getElementById('log-item-stars');
+  starsEl.innerHTML = entry.rating > 0
+    ? [1,2,3,4,5].map(n => '<span style="font-size:0.9rem;color:' + (n<=entry.rating?'var(--gold)':'var(--faint)') + '">' + (n<=entry.rating?'★':'☆') + '</span>').join('')
+      + '<span style="font-family:monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-left:0.4rem;align-self:center">' + (RW[entry.rating]||'') + '</span>'
+    : '';
+
+  // Ownership badge
+  const badges = {
+    owned:    '<span class="log-badge owned">✓ In collection</span>',
+    wishlist: '<span class="log-badge wishlist">♡ Want to buy</span>',
+    logged:   '<span class="log-badge logged">📝 Not owned</span>',
+  };
+  document.getElementById('log-item-badge').innerHTML = badges[entry.ownership||'logged'] || '';
+
+  // Date
+  const dateEl = document.getElementById('log-item-date');
+  if (entry.finishedAt) {
+    const [y, m] = entry.finishedAt.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    dateEl.textContent = 'Finished ' + (months[parseInt(m)-1]||m) + ' ' + y;
+  } else { dateEl.textContent = ''; }
+
+  // Note
+  const noteWrap = document.getElementById('log-item-note-wrap');
+  const noteEl   = document.getElementById('log-item-note');
+  if (entry.note?.trim()) {
+    noteEl.textContent = entry.note.trim();
+    noteWrap.style.display = 'block';
+  } else { noteWrap.style.display = 'none'; }
+
+  document.getElementById('log-item-ov').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLogItem() {
+  document.getElementById('log-item-ov').classList.remove('open');
+  document.body.style.overflow = '';
+  currentLogId = null;
+}
+function handleLogItemOv(e) { if (e.target.id === 'log-item-ov') closeLogItem(); }
+
+function logItemMoveToCollection() {
+  if (!currentLogId) return;
+  const entries = loadLogEntries();
+  const entry   = entries.find(e => e.id === currentLogId);
+  if (!entry) return;
+
+  // Add to ITEMS
+  const newId = 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  const item = {
+    id: newId, cat: entry.cat, type: entry.cat === 'games' ? 'game' : entry.cat,
+    title: entry.title, sub: entry.sub || '',
+    coverSm: entry.coverSm || '', coverBig: entry.coverBig || entry.coverSm || '',
+    phSm: null, phBig: null, coverIs: entry.cat === 'records' ? 'sq' : '',
+    tags: entry.tags || [], desc: '', meta: {}, spine: '#1a3a6a',
+  };
+  ITEMS.push(item);
+
+  // Transfer rating/note/status from log entry
+  saveRv(newId, {
+    rating: entry.rating || 0,
+    note:   entry.note   || '',
+    status: entry.ownership === 'wishlist' ? 'wishlist' : '',
+    addedAt:    Date.now(),
+    finishedAt: entry.finishedAt || '',
+  });
+
+  saveImported(ITEMS.slice());
+  refreshCounts(); updateStats(); render();
+
+  // Remove from log
+  saveLogEntries(entries.filter(e => e.id !== currentLogId));
+  closeLogItem();
+
+  // Open the new item modal
+  setTimeout(() => openModal(newId), 200);
+}
+
+function logItemEdit() {
+  if (!currentLogId) return;
+  const entries = loadLogEntries();
+  const entry   = entries.find(e => e.id === currentLogId);
+  if (!entry) return;
+  closeLogItem();
+  // Open log sheet pre-filled
+  openSheet('log');
+  setTimeout(() => {
+    document.getElementById('log-title').value   = entry.title;
+    document.getElementById('log-creator').value = entry.sub || '';
+    document.getElementById('log-date').value    = entry.finishedAt || '';
+    document.getElementById('log-note').value    = entry.note || '';
+    if (entry.coverSm) document.getElementById('log-img-url').value = entry.coverSm;
+    const catEl = document.getElementById('log-cat');
+    if (catEl) catEl.value = entry.cat;
+    logRating = entry.rating || 0; litLogStars(logRating);
+    logOwnership = entry.ownership || 'logged'; setLogOwnership(logOwnership);
+    // Override save to update instead of create
+    window._editingLogId = currentLogId = entry.id;
+  }, 100);
+}
+
+function logItemDelete() {
+  if (!currentLogId) return;
+  const entries = loadLogEntries();
+  saveLogEntries(entries.filter(e => e.id !== currentLogId));
+  closeLogItem();
+}
+
+// ─────────────────────────────────────────────────────────────
+// 1. CURRENTLY SECTION
+// Shows items with status 'playing' in a horizontal strip.
+// ─────────────────────────────────────────────────────────────
+function renderCurrently() {
+  const playing = ITEMS.filter(i => loadRv(i.id).status === 'playing');
+  const section = document.getElementById('currently-section');
+  const row     = document.getElementById('currently-row');
+  if (!playing.length) { section.classList.remove('has-items'); return; }
+  section.classList.add('has-items');
+  // Will wire clicks after innerHTML set
+  row.innerHTML = playing.map(item => {
+    const sq  = item.coverIs === 'sq';
+    const src = item.coverSm || item.phSm || '';
+    const img = src
+      ? '<img class="' + (sq?'c-sq':'') + '" src="' + src + '" alt="' + item.title + '" loading="lazy"/>'
+      : '<div class="currently-card-ph">' + (CE[item.cat]||'📦') + '</div>';
+    return '<div class="currently-card" data-id="' + item.id + '">'
+      + img
+      + '<div class="currently-pip playing">' + item.title + '</div>'
+    + '</div>';
+  }).join('');
+  row.querySelectorAll('.currently-card').forEach(el => {
+    el.addEventListener('click', () => openModal(el.dataset.id));
+  });
+}
+
+// renderCurrently is called directly after render() in the render function below
+
+// ─────────────────────────────────────────────────────────────
+// 2. WISHLIST PAGE
+// Combines wishlist items from collection + log entries.
+// ─────────────────────────────────────────────────────────────
+function openWishlist() {
+  buildWishlist();
+  document.getElementById('wishlist-page').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeWishlist() {
+  document.getElementById('wishlist-page').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function buildWishlist() {
+  // Collection items with wishlist status
+  const collWishlist = ITEMS.filter(i => loadRv(i.id).status === 'wishlist').map(item => ({
+    id: item.id, cat: item.cat, title: item.title, sub: item.sub,
+    coverSm: item.coverSm || item.phSm || '', coverIs: item.coverIs,
+    source: 'collection',
+  }));
+  // Log entries with wishlist ownership
+  const logWishlist = loadLogEntries().filter(e => e.ownership === 'wishlist').map(e => ({
+    id: e.id, cat: e.cat, title: e.title, sub: e.sub || '',
+    coverSm: e.coverSm || '', coverIs: '',
+    source: 'log',
+  }));
+  const all = [...collWishlist, ...logWishlist];
+
+  const sub = document.getElementById('wishlist-sub');
+  sub.textContent = all.length + ' item' + (all.length !== 1 ? 's' : '') + ' you want to get';
+
+  const grid = document.getElementById('wishlist-grid');
+  if (!all.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--faint);font-size:0.76rem;font-style:italic">No wishlist items yet.<br>Mark any item ♡ Wishlist in the status section, or use ♡ Want to buy when logging.</div>';
+    return;
+  }
+  grid.innerHTML = all.map(item => {
+    const sq  = item.coverIs === 'sq';
+    const img = item.coverSm
+      ? '<img' + (sq?' class="sq"':'') + ' src="' + item.coverSm + '" alt="' + item.title + '" loading="lazy"/>'
+      : '<div class="wl-item-ph">' + (CE[item.cat]||'📦') + '</div>';
+    const badge = item.source === 'log' ? '<div class="wl-source-badge">Logged</div>' : '';
+    return '<div class="wl-item" data-id="' + item.id + '" data-source="' + item.source + '">'
+      + img
+      + '<div class="wl-item-info">'
+        + '<div class="wl-item-title">' + item.title + '</div>'
+        + (item.sub ? '<div class="wl-item-sub">' + item.sub + '</div>' : '')
+        + badge
+      + '</div>'
+    + '</div>';
+  }).join('');
+
+  // Click handlers
+  grid.querySelectorAll('.wl-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const id     = el.dataset.id;
+      const source = el.dataset.source;
+      closeWishlist();
+      setTimeout(() => {
+        if (source === 'log') openLogItem(id);
+        else openModal(id);
+      }, 80);
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────────────
+// 3. DUPLICATE DETECTION
+// Shows a toast if the same title already exists before adding.
+// ─────────────────────────────────────────────────────────────
+let dupToastTimer = null;
+
+function showDupToast(title) {
+  const el = document.getElementById('dup-toast');
+  el.textContent = '"' + title.substring(0,30) + '" is already in your collection';
+  el.classList.add('show');
+  clearTimeout(dupToastTimer);
+  dupToastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+function checkDuplicate(title) {
+  const q = title.toLowerCase().trim();
+  return ITEMS.some(i => i.title.toLowerCase().trim() === q);
+}
+
+// Duplicate checks are called directly inside doAdd and doManualAdd
+
+// ─────────────────────────────────────────────────────────────
+// 4. YEAR IN REVIEW CATEGORY FILTER
+// ─────────────────────────────────────────────────────────────
+let yrCatFilter = 'all';
+let yrRatFilter = 0;  // minimum rating filter (0 = all)
+
+function buildYrFilterBar(allItems) {
+  const bar = document.getElementById('yr-filter-bar');
+  if (!bar) return;
+
+  const cats = ['all','games','board','records','movies','books'].filter(c =>
+    c === 'all' || allItems.some(x => x.item.cat === c)
+  );
+  const ratingFilters = [
+    { v: 0, label: 'All' },
+    { v: 4, label: '★★★★+' },
+    { v: 5, label: '★★★★★' },
+  ];
+
+  bar.innerHTML = cats.map(c =>
+    '<button class="yr-filter-pill' + (yrCatFilter === c ? ' active' : '') + '" data-cat="' + c + '">'
+    + (c === 'all' ? 'All' : CE[c] + ' ' + CL[c]) + '</button>'
+  ).join('')
+  + '<span style="width:1px;height:16px;background:var(--border);flex-shrink:0;align-self:center"></span>'
+  + ratingFilters.map(r =>
+    '<button class="yr-filter-pill' + (yrRatFilter === r.v ? ' active' : '') + '" data-rat="' + r.v + '">' + r.label + '</button>'
+  ).join('');
+
+  bar.querySelectorAll('[data-cat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      yrCatFilter = btn.dataset.cat;
+      buildEditorialYear(yrPageYear);
+    });
+  });
+  bar.querySelectorAll('[data-rat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      yrRatFilter = +btn.dataset.rat;
+      buildEditorialYear(yrPageYear);
+    });
+  });
+}
+
+// Add ESC / swipe handling for wishlist
+
 init();
 
 </script>
@@ -3627,5 +4065,6 @@ init();
   </div>
   <div id="mob-search-results"></div>
 </div>
+<div class="dup-toast" id="dup-toast"></div>
 </body>
 </html>
