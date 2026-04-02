@@ -767,10 +767,6 @@ select.field-inp{cursor:pointer}
 </nav>
 
 <main>
-  <div class="currently-section" id="currently-section">
-    <div class="currently-label">Currently</div>
-    <div class="currently-row" id="currently-row"></div>
-  </div>
   <div class="stats-bar">
     <div class="sb"><div class="sb-lbl">Total Items</div><div class="sb-val" id="sb-tot">0</div><div class="sb-sub">in collection</div></div>
     <div class="sb"><div class="sb-lbl">Avg Rating</div><div class="sb-val" id="sb-avg">—</div><div class="sb-sub" id="sb-rct">0 rated</div></div>
@@ -1538,7 +1534,6 @@ function init() {
 
   updateStats();
   render();
-  renderCurrently();
 }
 
 function refreshCounts() {
@@ -1649,7 +1644,6 @@ function render() {
   if (view === 'grid')       renderGrid(items, area);
   else if (view === 'shelf') renderShelf(items, area);
   else                       renderList(items, area);
-  renderCurrently();
 }
 
 // ── Cover image helper — graceful fallback via src swap ───────
