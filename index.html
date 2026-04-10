@@ -2026,8 +2026,10 @@ function doImport() {
   try { data = JSON.parse(raw); } catch(e) { status.className = 'form-status err'; status.textContent = 'Invalid JSON: ' + e.message; return; }
   // Support both raw array and vault export format {items:[], reviews:{}}
   let reviews = {};
+  let data_orig = null;
   if (!Array.isArray(data)) {
     if (data.items && Array.isArray(data.items)) {
+      data_orig = data;
       reviews = data.reviews || {};
       data = data.items;
     } else {
@@ -2036,9 +2038,17 @@ function doImport() {
   }
   // Restore reviews
   Object.entries(reviews).forEach(([id, rv]) => saveRv(id, rv));
+  // Restore log entries if present
+  if (data_orig && data_orig.logEntries && Array.isArray(data_orig.logEntries)) {
+    const existing = loadLogEntries();
+    const existingIds = new Set(existing.map(e => e.id));
+    const newEntries = data_orig.logEntries.filter(e => !existingIds.has(e.id));
+    saveLogEntries([...existing, ...newEntries]);
+    console.log('[import] log entries restored:', newEntries.length);
+  }
 
   let added = 0, updated = 0, skipped = 0;
-  const validCats = new Set(['games','board','records','movies']);
+  const validCats = new Set(['games','board','records','movies','books']);
   data.forEach(item => {
     if (!item.id || !item.cat || !item.title) { skipped++; return; }
     if (!validCats.has(item.cat)) { skipped++; return; }
@@ -2065,7 +2075,9 @@ function doImport() {
   saveImported(ITEMS.filter(x => !builtinIds.has(x.id)));
   refreshCounts(); updateStats(); render();
   status.className = 'form-status ok';
-  status.textContent = '✓ ' + added + ' added, ' + updated + ' updated' + (skipped ? ' (' + skipped + ' skipped)' : '');
+  const logCount = (data_orig && data_orig.logEntries) ? data_orig.logEntries.length : 0;
+  const logMsg = logCount > 0 ? ', ' + logCount + ' log entries' : '';
+  status.textContent = '✓ ' + added + ' added, ' + updated + ' updated' + (skipped ? ' (' + skipped + ' skipped)' : '') + logMsg;
   setTimeout(() => { if (added + updated > 0) closeSheet(); }, 2000);
 }
 
@@ -3237,8 +3249,9 @@ function exportCollection() {
     if (rv.rating || rv.note || rv.status || rv.finishedAt) reviews[item.id] = rv;
   });
   const payload = {
-    items: ITEMS,
+    items:      ITEMS,
     reviews,
+    logEntries: loadLogEntries(),
     exportedAt: new Date().toISOString(),
   };
   const json = JSON.stringify(payload, null, 2);
