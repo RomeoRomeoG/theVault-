@@ -1273,6 +1273,10 @@ select.field-inp{cursor:pointer}
   <button class="stats-close" onclick="closeStatsPage()">✕ Close</button>
   <h2 class="stats-h1">Collection <strong>Stats</strong></h2>
   <p class="stats-sub" id="stats-updated">—</p>
+  <div style="display:flex;gap:0.5rem;margin-bottom:1.25rem">
+    <button class="btn-sv" style="flex:1" onclick="exportCollection()">↓ Export</button>
+    <button class="btn-cl" style="flex:1" onclick="closeStatsPage();openSheet('import')">↑ Import</button>
+  </div>
   <div id="stats-content"></div>
 </div>
 
